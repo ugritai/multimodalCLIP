@@ -9,10 +9,21 @@ import io
 import torch
 import json
 import requests
+import pandas as pd
 
 checkpoint = "openai/clip-vit-large-patch14"
 model = AutoModelForZeroShotImageClassification.from_pretrained(checkpoint)
 processor = AutoProcessor.from_pretrained(checkpoint)
+
+
+class ImageClassification:
+    url : str
+    title : str
+    label : int
+    def __init__(self, url, label, title):
+        self.url = url
+        self.label = label
+        self.title = title
 
 class ZeroTwoPredictor:
     def __init__(self):
@@ -110,6 +121,24 @@ def zero_shot_prediction(request):
         else:
             res[f] = result
     return JsonResponse(res)
+
+@api_view(['POST'])
+@parser_classes([MultiPartParser])
+def predict_csv(request):
+    res = dict()
+    class_column=request.POST.get("class_column")
+    text_column=request.POST.get("text_column")
+    image_column=request.POST.get("image_column")
+    delimiter = request.POST.get("delimiter")
+    csv_file = request.FILES['csv_file']
+    sample_size = 10
+
+    df = pd.read_table(csv_file.read(), delimiter=delimiter)
+    dfg = df.groupby(class_column)
+    df_sample = dfg.sample(int(sample_size/dfg.ngroups))
+    images = df_sample.apply(lambda row: ImageClassification(row[image_column], row[class_column], row[text_column]), axis=1).to_list()
+    compute_accuracy(images, labels)
+
 
 
 

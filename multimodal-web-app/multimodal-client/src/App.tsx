@@ -1,5 +1,5 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
-import {VisualizationPage} from './pages/VisualizationPage'
+import {VisualizationPage} from './pages/VisualizationPage.tsx'
 
 
 function App() {
