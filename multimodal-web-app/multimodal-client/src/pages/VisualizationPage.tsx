@@ -22,6 +22,8 @@ export function VisualizationPage(){
     const [selectedFile, setSelectedFile] = useState(null);
     const [headers, setHeaders] = useState([]);
     const [error, setError] = useState(null);
+    const [uniqueClassValues, setUniqueClassValues] = useState<string[]>([]);
+    const [classDefinitions, setClassDefinitions] = useState<any>(null);
     
     const onClick = async () => {
         setProcessButtonDisabled(true)
@@ -29,9 +31,21 @@ export function VisualizationPage(){
         setProcessButtonDisabled(false)
     }
 
-    const TablePrinter = () => {
-        return (<div>hello</div>);
-    }
+    useEffect(() => {
+        if(selectedFile && classColumn){
+            let uniqueValues: string[] = [];
+            selectedFile.map((row:any, index:any) => {
+                if(uniqueValues.indexOf(row[classColumn]) === -1){
+                    uniqueValues.push(row[classColumn])
+                }
+            });
+            setUniqueClassValues(uniqueValues);
+            console.log(uniqueValues)
+        }
+        else{
+            setUniqueClassValues([])
+        }
+    }, [classColumn])
 
     const canPressButton = () => {
         return (predictor == imgplustextPredidctor && classColumn && textColumn && imageColumn && interpolation) ||
@@ -49,7 +63,8 @@ export function VisualizationPage(){
                     <ComboBoxCollection 
                         headers={headers} 
                         predictors={predictors} 
-                        interpolation={interpolations} 
+                        interpolation={interpolations}
+                        uniqueClasses={uniqueClassValues}
                         setClassColumn={setClassColumn} 
                         setTextColumn={setTextColumn} 
                         setImageColumn={setImageColumn} 
