@@ -32,7 +32,7 @@ export function ComboBoxCollection(
                     <ComboBox values={predictors} defaultText='Predictor' outputValue={setPredictorColumn}/>
                 </div>
                 <div className="flex flex-col w-full p-6 items-center gap-8" >
-                    <ComboBox values={interpolation} defaultText='Interpolation' outputValue={setInterpolationColumn}/>
+                    <ComboBox values={interpolation} defaultText='Fusion Method' outputValue={setInterpolationColumn}/>
                 </div>
             </div>
             {uniqueClasses.length !== 0 && (

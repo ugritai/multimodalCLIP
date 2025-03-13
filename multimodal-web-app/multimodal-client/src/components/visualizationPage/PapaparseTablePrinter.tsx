@@ -13,7 +13,7 @@ export function PapaparseTablePrinter({headers, data, nElements} : {headers : an
     {
     
     return (
-        <div>
+        <div className="w-5/6 border">
             <Table>
                 <TableHeader>
                     <TableRow key='header'>

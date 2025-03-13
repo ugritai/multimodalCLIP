@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 body {
-  background: #202020;
-  color: white;
+  background: #fffbf4;
+  color: rgb(0, 0, 0);
 }
 
 @layer base {

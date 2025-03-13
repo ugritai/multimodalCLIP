@@ -1,10 +1,10 @@
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, JSONParser
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from transformers import AutoProcessor, AutoModelForZeroShotImageClassification
 from sklearn.metrics import classification_report
 from PIL import Image
-from io import BytesIO
+from io import BytesIO, StringIO
 import io
 import torch
 import json
@@ -62,6 +62,7 @@ def compute_accuracy(images, labels):
     print(f'Samples: {len(images)}')
     print(f'Labels: {labels}')
     print(f'Accuracy: {classification_report(img_labels, predictions, target_names=labels)}')
+    return predictions
     
 
 # Create your views here.
@@ -124,20 +125,29 @@ def zero_shot_prediction(request):
 
 @api_view(['POST'])
 @parser_classes([MultiPartParser])
-def predict_csv(request):
+def predict_csv(request : HttpResponse):
     res = dict()
     class_column=request.POST.get("class_column")
     text_column=request.POST.get("text_column")
     image_column=request.POST.get("image_column")
-    delimiter = request.POST.get("delimiter")
+    delimiter = request.POST.get("delimiter", '\t')
+    sample_size = int(request.POST.get("sample_size"))
+    predictor = request.POST.get("predictor")
+    interpolation = request.POST.get("interpolation")
+    class_descriptions=request.POST.get("class_descriptions")
+    class_descriptions=json.loads(class_descriptions)
     csv_file = request.FILES['csv_file']
-    sample_size = 10
 
-    df = pd.read_table(csv_file.read(), delimiter=delimiter)
+    df = pd.read_table(csv_file, delimiter=delimiter, index_col=False)
     dfg = df.groupby(class_column)
     df_sample = dfg.sample(int(sample_size/dfg.ngroups))
     images = df_sample.apply(lambda row: ImageClassification(row[image_column], row[class_column], row[text_column]), axis=1).to_list()
-    compute_accuracy(images, labels)
+    predictions = compute_accuracy(images, class_descriptions)
+    true_labels = [x for x in df_sample[class_column]]
+    res["predictions"]=predictions
+    res["true_labels"]=true_labels
+    res["report"]=classification_report(true_labels, predictions, target_names=class_descriptions, output_dict=True)
+    return JsonResponse(res, safe=False)
 
 
 
