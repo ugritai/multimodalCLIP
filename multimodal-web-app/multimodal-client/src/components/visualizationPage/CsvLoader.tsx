@@ -3,8 +3,9 @@ import { Label } from "@/components/ui/label"
 import Papa from 'papaparse';
 
 export function CsvLoader(
-        {setData, setHeaders, setError} :
+        {setData, setCsvFile, setHeaders, setError} :
         {setData : React.Dispatch<React.SetStateAction<null>>,
+        setCsvFile : React.Dispatch<React.SetStateAction<File>>,
         setHeaders : React.Dispatch<React.SetStateAction<string[]>>,
         setError : React.Dispatch<React.SetStateAction<null>>})
     {
@@ -13,6 +14,7 @@ export function CsvLoader(
       const selectedFile = event.target.files ? event.target.files[0] : null;
         if (selectedFile) {
           parseCSV(selectedFile);
+          setCsvFile(selectedFile);
         }
       };
     
