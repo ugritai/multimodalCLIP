@@ -40,9 +40,12 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'rest_framework',
+    'rest_framework.authtoken',
+    'djoser',
     'coreapi',
     'visualization',
     'classifications',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -134,8 +137,20 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173'
 ]
 
+#configure DRF
 REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
 
 ASGI_APPLICATION = "MultimodalWebApp.asgi.application"
+
+# configure Djoser
+DJOSER = {
+    "USER_ID_FIELD": "username"
+}
