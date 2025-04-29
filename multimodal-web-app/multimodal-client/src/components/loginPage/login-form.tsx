@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useNavigate } from 'react-router-dom';
+import {Login} from "@/api/auth.api";
 
 export function LoginForm({
   className,
@@ -26,6 +27,9 @@ export function LoginForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
+    const response = Login(username, password);
+
+    
     // Aquí se definen las credenciales correctas (puedes cambiarlo o hacer una llamada a un API real)
     const correctUsername = "admin"
     const correctPassword = "1234"
