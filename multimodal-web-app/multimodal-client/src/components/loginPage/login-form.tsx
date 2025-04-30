@@ -27,20 +27,17 @@ export function LoginForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    const response = Login(username, password);
-
-    
-    // Aquí se definen las credenciales correctas (puedes cambiarlo o hacer una llamada a un API real)
-    const correctUsername = "admin"
-    const correctPassword = "1234"
-
-    // Verificar si las credenciales son correctas
-    if (username === correctUsername && password === correctPassword) {
+    Login(username, password)
+      .then((data) => {
+        window.localStorage.setItem("username", username);
+        window.localStorage.setItem("token", data.data.auth_token);
         setError("") 
-        navigate("/visualization")
-    } else {
+        navigate(`/user/${username}`)
+      })
+      .catch((error) => {
+        console.log(error);
         setError("Credenciales incorrectas") 
-    }
+      });
   }
 
   return (
