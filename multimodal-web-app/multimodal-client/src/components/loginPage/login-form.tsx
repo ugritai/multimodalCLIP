@@ -11,6 +11,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { useNavigate } from 'react-router-dom';
+import {Login} from "@/api/auth.api";
 
 export function LoginForm({
   className,
@@ -26,17 +27,17 @@ export function LoginForm({
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
-    // Aquí se definen las credenciales correctas (puedes cambiarlo o hacer una llamada a un API real)
-    const correctUsername = "admin"
-    const correctPassword = "1234"
-
-    // Verificar si las credenciales son correctas
-    if (username === correctUsername && password === correctPassword) {
+    Login(username, password)
+      .then((data) => {
+        window.localStorage.setItem("username", username);
+        window.localStorage.setItem("token", data.data.auth_token);
         setError("") 
-        navigate("/visualization")
-    } else {
+        navigate(`/user/${username}`)
+      })
+      .catch((error) => {
+        console.log(error);
         setError("Credenciales incorrectas") 
-    }
+      });
   }
 
   return (

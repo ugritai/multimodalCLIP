@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'visualization',
     'classifications',
     'accounts',
+    'datasets',
 ]
 
 MIDDLEWARE = [

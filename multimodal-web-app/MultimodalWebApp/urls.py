@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('visualizations/', include('visualization.urls')),
     path('classifications/', include('classifications.urls')),
+    path('datasets/', include('datasets.urls')),
 ]
 
 urlpatterns += accounts_urlpatterns

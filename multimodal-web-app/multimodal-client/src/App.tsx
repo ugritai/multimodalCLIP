@@ -1,6 +1,7 @@
 import {BrowserRouter, Routes, Route, Navigate} from 'react-router-dom'
 import {VisualizationPage} from './pages/VisualizationPage.tsx'
 import LoginPage from './pages/LoginPage.tsx'
+import { UserPage } from './pages/UserPage.tsx'
 
 
 function App() {
@@ -8,7 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/login" />} />
-        <Route path="/visualization" element={<VisualizationPage/>} />
+        <Route path="/user/:username" element={<UserPage/>} />
         <Route path="/login" element={<LoginPage/>} />
       </Routes>
     </BrowserRouter>
