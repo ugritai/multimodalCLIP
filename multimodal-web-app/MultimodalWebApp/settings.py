@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'classifications',
     'accounts',
     'datasets',
+    'apps.prediction_models',
 ]
 
 MIDDLEWARE = [

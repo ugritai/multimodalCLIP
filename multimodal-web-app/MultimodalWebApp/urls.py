@@ -23,6 +23,7 @@ urlpatterns = [
     path('visualizations/', include('visualization.urls')),
     path('classifications/', include('classifications.urls')),
     path('datasets/', include('datasets.urls')),
+    path('prediction_models/', include('apps.prediction_models.urls'))
 ]
 
 urlpatterns += accounts_urlpatterns
