@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     'djoser',
     'coreapi',
     'visualization',
-    'classifications',
-    'accounts',
-    'datasets',
+    'apps.classifications',
+    'apps.accounts',
+    'apps.datasets',
     'apps.prediction_models',
 ]
 
