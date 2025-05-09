@@ -3,8 +3,8 @@ from rest_framework.parsers import MultiPartParser
 from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.db import IntegrityError, transaction
 from django.contrib.auth.models import User
-from datasets.models import Dataset
-from datasets.serializers import DatasetSerializer
+from apps.datasets.models import Dataset
+from apps.datasets.serializers import DatasetSerializer
 from pathlib import Path
 import os
 import pandas as pd
