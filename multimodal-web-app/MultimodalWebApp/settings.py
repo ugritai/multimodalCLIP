@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'djoser',
     'coreapi',
+    'django_celery_results',
     'visualization',
     'apps.classifications',
     'apps.accounts',
@@ -156,3 +157,7 @@ ASGI_APPLICATION = "MultimodalWebApp.asgi.application"
 DJOSER = {
     "USER_ID_FIELD": "username"
 }
+
+# configure celery
+CELERY_RESULT_BACKEND = 'django-db'
+CELERY_BROKER_URL = 'amqp://guest:guest@localhost:5672/'

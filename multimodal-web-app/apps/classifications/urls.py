@@ -3,8 +3,5 @@ from . import views
 
 
 urlpatterns = [
-    path('classify_image/', views.classify_image),
-    path('zero_shot_prediction/', views.zero_shot_prediction),
-    path('predict_csv/', views.predict_csv),
-    path('few_shot_csv/', views.few_shot_csv),
+     path('test_celery/', views.test_celery),
 ]

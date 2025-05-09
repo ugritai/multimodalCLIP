@@ -20,7 +20,7 @@ from apps.accounts.urls import accounts_urlpatterns
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('visualizations/', include('visualization.urls')),
+    # path('visualizations/', include('visualization.urls')),
     path('classifications/', include('apps.classifications.urls')),
     path('datasets/', include('apps.datasets.urls')),
     path('prediction_models/', include('apps.prediction_models.urls'))
