@@ -14,5 +14,5 @@ class ClassificationProcess(models.Model):
     dataset = models.ForeignKey(Dataset, on_delete=models.CASCADE)
     creation_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now_add=True)
-    status = models.CharField(max_length=255, choices=STATUSES, default='UNQUEUE')
+    status = models.CharField(max_length=255, choices=STATUSES, default='IN_QUEUE')
     model_name = models.CharField(max_length=255)

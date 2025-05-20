@@ -38,3 +38,12 @@ export const UploadDataset = (dataset : File) => {
     formData.append('file', dataset);
     return api.put('/datasets/upload/', formData, {headers:{"Content-Type":"multipart/form-data"}})
 }
+
+export const UploadHuggingFaceDataset = (dataset :string, config :string, split :string) => {
+    const data = {
+        dataset_name : dataset,
+        config: config,
+        split: split,
+    }
+    return api.put('/datasets/upload_huggingface/', data, {headers:{"Content-Type":"application/json"}})
+}
