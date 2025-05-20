@@ -1,13 +1,17 @@
 import { UserDatasets } from "@/api/datasets.api";
 import { useEffect, useState } from "react";
-import { Trash, Plus } from "lucide-react";
-import { Button } from "../ui/button";
-import { useNavigate } from "react-router-dom";
-import { AddDatasetModal } from "./AddDatasetModal";
-import { ConfirmDeleteModal } from "./ConfirmDeleteModal";
+import { Trash } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useNavigate, useParams } from "react-router-dom";
+import { AddDatasetModal } from "@/components/userDatasetsPage/AddDatasetModal";
+import { ConfirmDeleteModal } from "@/components/userDatasetsPage/ConfirmDeleteModal";
+import LeftDownAddButton from "@/components/common/AddButtonModal";
 
-export function DatasetContainer({username} : {username : string}) {
+export function UserDatasetsPage() {
     
+    const {username} = useParams();
+    const loggedUser = window.localStorage.getItem("username");
+    const isOwner = (username == loggedUser);
     const navigate = useNavigate();
     const [isLoading, setLoading] = useState(true);
     const [addShowModal, setAddShowModal] = useState(false);
@@ -17,7 +21,7 @@ export function DatasetContainer({username} : {username : string}) {
     const [reloadDatasets, setReloadDatasets] = useState([]);
 
     useEffect(() => {
-        UserDatasets(username).then( 
+        UserDatasets(username ?? "").then( 
             (data) => {
                 setDatasets(data.data);
                 setLoading(false)
@@ -44,11 +48,7 @@ export function DatasetContainer({username} : {username : string}) {
                     </div>
                 ))}
                 
-                <div className="fixed bottom-4 right-4">
-                    <button onClick={() => setAddShowModal(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full shadow-lg">
-                        <Plus/>
-                    </button>
-                </div>
+                {isOwner && <LeftDownAddButton onClick={() => setAddShowModal(true)}/>}
                 {addShowModal && (
                     <AddDatasetModal setReloadDatasets={setReloadDatasets} setShowModal={setAddShowModal}/>
                 )}

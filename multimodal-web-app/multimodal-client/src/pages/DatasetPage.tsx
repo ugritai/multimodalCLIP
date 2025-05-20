@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Papa from 'papaparse';
 import { PapaparseTablePrinter } from "@/components/visualizationPage/PapaparseTablePrinter";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 
 export function DatasetPage(){
@@ -26,8 +27,12 @@ export function DatasetPage(){
             });
         }, [])
         return (
-            <div>{snippet && <PapaparseTablePrinter data={snippet.data} headers={snippet.meta.fields} nElements={5}/>}
-            </div>
+            
+        <ScrollArea className="w-full h-96">
+            {snippet && <PapaparseTablePrinter data={snippet.data} headers={snippet.meta.fields} nElements={5}/>}
+            
+            <ScrollBar orientation="horizontal" />
+        </ScrollArea >
         )
     }
     else{        
