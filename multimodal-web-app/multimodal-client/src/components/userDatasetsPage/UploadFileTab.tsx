@@ -43,19 +43,21 @@ export function UploadFileTab(
         <div>
             <h2 className="text-xl font-semibold mb-4">Añadir archivo</h2>
             <Input id="csvFile" type="file" onChange={handleFileChange}/>
-            <button
-            onClick={() => uploadFileDataset()}
-            className={addButtonDisabled ? disabledButtonStyle : enabledButtonStyle}
-            disabled={addButtonDisabled}
-            >
-            Añadir
-            </button>
-            <button
-            onClick={() => setShowModal(false)}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-            Cerrar
-            </button>
+            <div className="flex gap-1 mt-2">
+                <button
+                onClick={() => uploadFileDataset()}
+                className={addButtonDisabled ? disabledButtonStyle : enabledButtonStyle}
+                disabled={addButtonDisabled}
+                >
+                Añadir
+                </button>
+                <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                Cerrar
+                </button>
+            </div>
         </div>
     )
 }

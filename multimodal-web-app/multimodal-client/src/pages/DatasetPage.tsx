@@ -4,6 +4,8 @@ import { useNavigate, useParams } from "react-router-dom";
 import Papa from 'papaparse';
 import { PapaparseTablePrinter } from "@/components/visualizationPage/PapaparseTablePrinter";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
+import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 
 export function DatasetPage(){
@@ -27,12 +29,20 @@ export function DatasetPage(){
             });
         }, [])
         return (
-            
-        <ScrollArea className="w-full h-96">
-            {snippet && <PapaparseTablePrinter data={snippet.data} headers={snippet.meta.fields} nElements={5}/>}
-            
-            <ScrollBar orientation="horizontal" />
-        </ScrollArea >
+            <div>
+                {snippet 
+                ? <ScrollArea className="w-full h-96"><PapaparseTablePrinter data={snippet.data} headers={snippet.meta.fields} nElements={5}/>
+                        <ScrollBar orientation="horizontal" />
+                </ScrollArea >
+                : <div className="w-full h-full pr-1">
+                    <Skeleton className="w-full h-10 mb-1"/>
+                    <Skeleton className="w-full h-10 mb-1"/>
+                    <Skeleton className="w-full h-10 mb-1"/>
+                </div>}
+                <Button>
+                    +
+                </Button>
+        </div>
         )
     }
     else{        

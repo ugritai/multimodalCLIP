@@ -6,13 +6,13 @@ export interface Split{
     split:string,
 }
 
-const api = axios.create({
-    baseURL:"https://datasets-server.huggingface.co"
-})
+const api = axios.create();
+const defaultBaseUri = "https://huggingface.co";
+const datasetBaseUri = "https://datasets-server.huggingface.co";
 
-export const IsValid = async (dataset : string) => {
+export const IsValidDataset = async (dataset : string) => {
     try{
-        return await api.get(`/is-valid?dataset=${dataset}`)
+        return await api.get(`${datasetBaseUri}/is-valid?dataset=${dataset}`)
             .then((response) => {
                 for (const property in response.data){
                     if (response.data[property] === true){
@@ -31,7 +31,24 @@ export const IsValid = async (dataset : string) => {
 }
 
 export const GetSplits = async (dataset : string) => {
-    const response = await api.get(`/splits?dataset=${dataset}`);
+    const response = await api.get(`${datasetBaseUri}/splits?dataset=${dataset}`);
     const splits : Split[] = response.data.splits;
     return splits;
+}
+
+export const IsValidModel = async (model_name : string) => {
+    try{
+        return await api.get(`${defaultBaseUri}/api/models/${model_name}`)
+            .then(() => {
+                console.log("true");
+                return true;
+            })
+            .catch(() => {
+                console.log("false");
+                return false;
+            });
+    }
+    catch{
+        return false;
+    }
 }

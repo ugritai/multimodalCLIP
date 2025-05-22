@@ -1,14 +1,28 @@
-import { UserDatasets } from "@/api/datasets.api";
+import { DeleteDataset, UserDatasets } from "@/api/datasets.api";
 import { useEffect, useState } from "react";
-import { Trash } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import { AddDatasetModal } from "@/components/userDatasetsPage/AddDatasetModal";
-import { ConfirmDeleteModal } from "@/components/userDatasetsPage/ConfirmDeleteModal";
+import { ConfirmDeleteModal } from "@/components/common/ConfirmDeleteModal";
 import LeftDownAddButton from "@/components/common/AddButtonModal";
+import { TableWithDelete } from "@/components/common/TableWithDelete";
+
+type Dataset = {
+    dataset_id: Number,
+    dataset_name: string,
+    upload_date: string,
+    dataset_type: string,
+    separator: string,
+    metadata: string,
+    user: Number
+}
 
 export function UserDatasetsPage() {
-    
+    const displayHeaders :Record<string,string> = 
+    {
+        dataset_name: "Nombre",
+        upload_date: "Fecha de subida",
+        dataset_type: "Tipo",
+    }
     const {username} = useParams();
     const loggedUser = window.localStorage.getItem("username");
     const isOwner = (username == loggedUser);
@@ -16,8 +30,8 @@ export function UserDatasetsPage() {
     const [isLoading, setLoading] = useState(true);
     const [addShowModal, setAddShowModal] = useState(false);
     const [deleteShowModal, setDeleteShowModal] = useState(false);
-    const [selectedDataset, setSelectedDataset] = useState();
-    const [datasets, setDatasets] = useState<any[]>([])
+    const [selectedDataset, setSelectedDataset] = useState<Dataset>();
+    const [datasets, setDatasets] = useState<Dataset[]>([])
     const [reloadDatasets, setReloadDatasets] = useState([]);
 
     useEffect(() => {
@@ -29,33 +43,58 @@ export function UserDatasetsPage() {
         )
     }, [reloadDatasets])
 
-    if(isLoading){
-        return (<div>Loading...</div>)
+    const OnDoubleClick = (e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
+        const row = e.currentTarget;
+        const dataset_name = row.cells[0]?.textContent;
+        const dataset = datasets.find(ds => ds.dataset_name === dataset_name)
+        if(dataset){
+            navigate(`/dataset/${dataset.dataset_id}`);
+        }
+        else{
+            console.log(`Dataset ${dataset_name} not found`)
+        }
     }
-    else{
-        return (
-            <div>
-                <h3>User: {username}</h3>
-                {datasets && datasets.map((dataset, index) =>(
-                    <div key={index}>
-                        <div className='rounded-sm bg-amber-200 w-1/2 h-11 relative' 
-                        onDoubleClick={() => {navigate(`/dataset/${dataset.dataset_id}`)}}>
-                            <span className=" absolute inset-y-2 left-0">{dataset.dataset_name}</span>
-                            <div className="absolute inset-y-1 right-1">
-                                <Button onClick={() => {setSelectedDataset(dataset);setDeleteShowModal(true);}}><Trash/></Button>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-                
-                {isOwner && <LeftDownAddButton onClick={() => setAddShowModal(true)}/>}
-                {addShowModal && (
-                    <AddDatasetModal setReloadDatasets={setReloadDatasets} setShowModal={setAddShowModal}/>
-                )}
-                {deleteShowModal && (
-                    <ConfirmDeleteModal setReloadDatasets={setReloadDatasets} setShowModal={setDeleteShowModal} dataset={selectedDataset}/>
-                )}
-            </div>
-        )
+
+    const OnDeleteClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+        const button = e.currentTarget;
+        const row = button.closest('tr') as HTMLTableRowElement;
+        const dataset_name = row.cells[0]?.textContent;
+        const dataset = datasets.find(ds => ds.dataset_name === dataset_name)
+        setSelectedDataset(dataset);
+        setDeleteShowModal(true);
     }
+
+    const deleteDataset = (dataset : Dataset) => {
+        DeleteDataset(dataset.dataset_id)
+        .then(() => {
+            setReloadDatasets([]);
+        })
+        .catch((error) => {
+            alert(`Failed to delete ${dataset.dataset_name}`)
+            console.log(error);
+        })
+    }
+
+    return (
+        <div>
+            <h3>User: {username}</h3>
+            {isLoading
+                ? <p>Loading...</p>
+                : <TableWithDelete 
+                    headers={displayHeaders} 
+                    data={datasets}
+                    onDoubleClick={OnDoubleClick}
+                    onDeleteClick={OnDeleteClick}
+                    />
+            }
+            
+            {isOwner && <LeftDownAddButton onClick={() => setAddShowModal(true)}/>}
+            {addShowModal && (
+                <AddDatasetModal setReloadDatasets={setReloadDatasets} setShowModal={setAddShowModal}/>
+            )}
+            {deleteShowModal && selectedDataset && (
+                <ConfirmDeleteModal<Dataset> setShowModal={setDeleteShowModal} deleteFunction={deleteDataset} elementToDelete={selectedDataset}/>
+            )}
+        </div>
+    )
 }

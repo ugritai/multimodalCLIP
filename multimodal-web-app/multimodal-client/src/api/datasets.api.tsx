@@ -21,7 +21,7 @@ export const UserDatasets = (username :string) => {
     return api.get(`/datasets/${username}/`);
 }
 
-export const DeleteDataset = (dataset_id : string) => {
+export const DeleteDataset = (dataset_id : Number) => {
     return api.delete(`/datasets/${dataset_id}/delete/`);
 }
 

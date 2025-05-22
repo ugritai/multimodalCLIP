@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Input } from "../ui/input";
-import { GetSplits, IsValid, Split } from "@/api/hugginface.api";
+import { GetSplits, IsValidDataset, Split } from "@/api/hugginface.api";
 import { UploadHuggingFaceDataset } from "@/api/datasets.api";
 
 export function AddHuggingFaceTab(
@@ -27,7 +27,7 @@ export function AddHuggingFaceTab(
     const onClickSearch = async () => {
         setSearchButtonDisabled(true);
 
-        const isValid = await IsValid(hugginFaceModel);
+        const isValid = await IsValidDataset(hugginFaceModel);
         if(isValid){
             setSplits(await GetSplits(hugginFaceModel));
             setDatasetNotFound(false);
@@ -49,7 +49,7 @@ export function AddHuggingFaceTab(
 
     return (
         <div className='mb-1'>
-            <h2 className="text-xl font-semibold mb-4">Subir modelo de HuggingFace</h2>
+            <h2 className="text-xl font-semibold mb-4">Subir dataset de HuggingFace</h2>
             <Input defaultValue={hugginFaceModel} 
                 id="hugginFaceInput" 
                 type="text" 
@@ -68,19 +68,21 @@ export function AddHuggingFaceTab(
                 })}
             </div>
             }
-            <button
-            onClick={onClickSearch}
-            className={searchButtonDisabled ? disabledButtonStyle : enabledButtonStyle}
-            disabled={searchButtonDisabled}
-            >
-            Buscar
-            </button>
-            <button
-            onClick={() => setShowModal(false)}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-            Cerrar
-            </button>
+            <div className="flex gap-1 mt-2">
+                <button
+                onClick={onClickSearch}
+                className={searchButtonDisabled ? disabledButtonStyle : enabledButtonStyle}
+                disabled={searchButtonDisabled}
+                >
+                Buscar
+                </button>
+                <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                Cerrar
+                </button>
+            </div>
         </div>
     )
 }

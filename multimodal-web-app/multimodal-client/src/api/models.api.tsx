@@ -18,5 +18,16 @@ api.interceptors.request.use(
 )
 
 export const UserModels = (username :string) => {
-    return api.get(`/models/${username}/`);
+    return api.get(`/prediction_models/${username}/`);
+}
+
+export const Deletemodel = (model_id : Number) => {
+    return api.delete(`/prediction_models/${model_id}/delete/`);
+}
+
+export const UploadModel = (model_name : string) => {
+    const data = {
+        model_name: model_name
+    }
+    return api.put('/prediction_models/upload/', data, {headers:{"Content-Type":"application/json"}})
 }
