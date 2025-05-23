@@ -21,7 +21,7 @@ export const UserDatasets = (username :string) => {
     return api.get(`/datasets/${username}/`);
 }
 
-export const DeleteDataset = (dataset_id : string) => {
+export const DeleteDataset = (dataset_id : Number) => {
     return api.delete(`/datasets/${dataset_id}/delete/`);
 }
 
@@ -37,4 +37,13 @@ export const UploadDataset = (dataset : File) => {
     const formData = new FormData();
     formData.append('file', dataset);
     return api.put('/datasets/upload/', formData, {headers:{"Content-Type":"multipart/form-data"}})
+}
+
+export const UploadHuggingFaceDataset = (dataset :string, config :string, split :string) => {
+    const data = {
+        dataset_name : dataset,
+        config: config,
+        split: split,
+    }
+    return api.put('/datasets/upload_huggingface/', data, {headers:{"Content-Type":"application/json"}})
 }

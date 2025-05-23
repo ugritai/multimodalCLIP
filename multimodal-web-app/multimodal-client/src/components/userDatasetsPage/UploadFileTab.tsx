@@ -1,8 +1,8 @@
-import { useState } from "react"
-import { Input } from "../ui/input"
+import { useState } from "react";
+import { Input } from "../ui/input";
 import { UploadDataset } from "@/api/datasets.api";
 
-export function AddDatasetModal(
+export function UploadFileTab(
 {
     setReloadDatasets,
     setShowModal
@@ -10,8 +10,8 @@ export function AddDatasetModal(
 { 
     setReloadDatasets : React.Dispatch<React.SetStateAction<never[]>>,
     setShowModal : React.Dispatch<React.SetStateAction<boolean>>
-}) 
-{
+}){
+    
     const enabledButtonStyle = "px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600";
     const disabledButtonStyle = "px-4 py-2 bg-gray-500 text-white rounded";
     const [file, setFile] = useState<File>();
@@ -26,7 +26,7 @@ export function AddDatasetModal(
             setAddButtonDisabled(true);
         }
     };
-    const addDataset = () => {
+    const uploadFileDataset = () => {
         if(file){
             UploadDataset(file)
             .then(() => {
@@ -39,23 +39,25 @@ export function AddDatasetModal(
             });
         }
     };
-    return  (<div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-md">
+    return (
+        <div>
             <h2 className="text-xl font-semibold mb-4">Añadir archivo</h2>
             <Input id="csvFile" type="file" onChange={handleFileChange}/>
-            <button
-            onClick={() => addDataset()}
-            className={addButtonDisabled ? disabledButtonStyle : enabledButtonStyle}
-            disabled={addButtonDisabled}
-            >
-            Añadir
-            </button>
-            <button
-            onClick={() => setShowModal(false)}
-            className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-            >
-            Cerrar
-            </button>
+            <div className="flex gap-1 mt-2">
+                <button
+                onClick={() => uploadFileDataset()}
+                className={addButtonDisabled ? disabledButtonStyle : enabledButtonStyle}
+                disabled={addButtonDisabled}
+                >
+                Añadir
+                </button>
+                <button
+                onClick={() => setShowModal(false)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+                >
+                Cerrar
+                </button>
+            </div>
         </div>
-    </div>)
+    )
 }
