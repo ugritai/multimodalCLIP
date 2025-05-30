@@ -33,6 +33,14 @@ export const SnippetDataset = (dataset_id : string) => {
     return api.get(`/datasets/${dataset_id}/snippet/`, {responseType: "blob"});
 }
 
+export const GetDatasetHeaders = (dataset_id : Number) => {
+    return api.get(`/datasets/${dataset_id}/headers/`)
+}
+
+export const GetUniqueDescriptions = (dataset_id : Number, class_column :string) => {
+    return api.get(`/datasets/${dataset_id}/unique_values/${class_column}`)
+}
+
 export const UploadDataset = (dataset : File) => {
     const formData = new FormData();
     formData.append('file', dataset);

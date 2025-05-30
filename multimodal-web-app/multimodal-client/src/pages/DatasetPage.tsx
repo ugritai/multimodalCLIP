@@ -6,11 +6,13 @@ import { PapaparseTablePrinter } from "@/components/visualizationPage/PapaparseT
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { NewClassificationModal } from "@/components/datasetPage/newClassificationModal";
 
 
 export function DatasetPage(){
     const {dataset_id} = useParams();
     const [snippet, setSnippet] = useState<any>(null);
+    const [newClassShowModal, setNewClassShowModal] = useState<boolean>(false);
     const navigate = useNavigate();
     if(dataset_id){
         useEffect(() => {
@@ -39,9 +41,13 @@ export function DatasetPage(){
                     <Skeleton className="w-full h-10 mb-1"/>
                     <Skeleton className="w-full h-10 mb-1"/>
                 </div>}
-                <Button>
-                    +
-                </Button>
+                <div className="p-1">
+                    <Button onClick={() => setNewClassShowModal(true)}>
+                        + Nueva clasificación
+                    </Button>
+                </div>
+                {newClassShowModal &&
+                    <NewClassificationModal setShowModal={setNewClassShowModal} dataset_id={Number(dataset_id)}/>}
         </div>
         )
     }

@@ -5,7 +5,6 @@ import {
   SidebarContent,
   SidebarGroup,
   SidebarGroupContent,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -29,8 +28,8 @@ export function AppSidebar() {
       icon: FlaskConical,
     },
     {
-      title: "Procesos",
-      url: `/processes/${username}`,
+      title: "Clasificaciones",
+      url: `/classifications/${username}`,
       icon: Combine,
     },
     {
@@ -43,7 +42,6 @@ export function AppSidebar() {
     <Sidebar variant="sidebar" collapsible="icon" className="top-10">
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel></SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.map((item) => (

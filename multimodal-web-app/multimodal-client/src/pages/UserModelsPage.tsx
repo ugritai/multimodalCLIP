@@ -3,15 +3,9 @@ import LeftDownAddButton from "@/components/common/AddButtonModal";
 import { ConfirmDeleteModal } from "@/components/common/ConfirmDeleteModal";
 import { TableWithDelete } from "@/components/common/TableWithDelete";
 import { AddModelModal } from "@/components/UserModelsPage/AddModelModal";
+import { PredicionModel } from "@/types/PredictionModel";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-
-type PredicionModel = {
-    model_id :number,
-    model_name :string,
-    upload_date :string,
-    user :number
-}
 
 export function UserModelsPage(){
     const displayHeaders: Record<string, string> = {

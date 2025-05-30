@@ -9,4 +9,6 @@ urlpatterns = [
     path('<int:dataset_id>/delete/', views.delete_dataset),
     path('<int:dataset_id>/download/', views.download_dataset),
     path('<int:dataset_id>/snippet/', views.get_dataset_snippet),
+    path('<int:dataset_id>/headers/', views.get_headers),
+    path('<int:dataset_id>/unique_values/<str:column_name>', views.get_column_unique_values),
 ]
