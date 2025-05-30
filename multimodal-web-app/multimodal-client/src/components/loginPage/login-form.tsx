@@ -32,7 +32,7 @@ export function LoginForm({
         window.localStorage.setItem("username", username);
         window.localStorage.setItem("token", data.data.auth_token);
         setError("") 
-        navigate(`/user/${username}`)
+        navigate(`/datasets/${username}`)
       })
       .catch((error) => {
         console.log(error);

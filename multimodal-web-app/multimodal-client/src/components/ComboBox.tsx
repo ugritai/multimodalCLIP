@@ -17,14 +17,20 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function ComboBox({values, defaultText, outputValue} : {values:string[], defaultText:string, outputValue:React.Dispatch<React.SetStateAction<string>>}){
+type Props = {
+        values : string[],
+        defaultText : string,
+        setField : (value:string) => void
+}
+
+export function ComboBox({values, defaultText, setField} : Props){
     const [open, setOpen] = useState(false)
     const [value, setValue] = useState("")
     return (
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 justify-between pb-1">
             <p className="text-sm">{defaultText}</p>
             <Popover open={open} onOpenChange={setOpen}>
-                <div  className="text-foreground">
+                <div className="text-foreground">
                 <PopoverTrigger asChild>
                 <Button
                     variant="outline"
@@ -32,9 +38,10 @@ export function ComboBox({values, defaultText, outputValue} : {values:string[], 
                     aria-expanded={open}
                     className="w-[200px] justify-between"
                 >
+                    <span className='truncate overflow-hidden whitespace-nowrap mr-2'>
                     {value
-                    ? values.find((v: string) => v === value)
-                    : `Select ${defaultText}`}
+                    ? values.find((v: string) => v === value) ?? ""
+                    : `Select ...`}</span>
                     <ChevronsUpDown className="opacity-50" />
                 </Button>
                 </PopoverTrigger>
@@ -51,7 +58,7 @@ export function ComboBox({values, defaultText, outputValue} : {values:string[], 
                             value={v}
                             onSelect={(currentValue) => {
                             setValue(currentValue === value ? "" : currentValue)
-                            outputValue(currentValue === value ? "" : currentValue)
+                            setField(currentValue === value ? "" : currentValue)
                             setOpen(false)
                             }}
                         >
