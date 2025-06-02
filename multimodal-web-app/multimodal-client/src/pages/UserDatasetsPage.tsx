@@ -77,7 +77,7 @@ export function UserDatasetsPage() {
 
     return (
         <div>
-            <h3>User: {username}</h3>
+            <h1>Datasets de {username}</h1>
             {isLoading
                 ? <p>Loading...</p>
                 : <TableWithDelete 

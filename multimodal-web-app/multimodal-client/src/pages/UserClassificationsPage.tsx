@@ -7,6 +7,7 @@ export function UserClassificationsPage(){
     
     return (
         <div>
+            <h1>Clasificaciones de {username}</h1>
         </div>
     )
 }
