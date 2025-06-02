@@ -18,6 +18,9 @@ class Dataset(models.Model):
     separator = models.CharField(max_length=1, null=True)
     metadata = models.JSONField(null=True)
 
+    def __str__(self):
+        return self.dataset_name
+
     class Meta:
         constraints = [
         models.UniqueConstraint(fields=['user', 'dataset_name'], name='unique filename per user')

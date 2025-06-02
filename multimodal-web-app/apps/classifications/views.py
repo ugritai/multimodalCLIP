@@ -1,6 +1,6 @@
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import MultiPartParser, JSONParser
-from django.http import JsonResponse, HttpResponse
+from django.http import HttpResponseNotFound, JsonResponse, HttpResponse
 # from transformers import AutoProcessor, AutoModelForZeroShotImageClassification
 # from sklearn.metrics import classification_report
 # from PIL import Image
@@ -15,8 +15,10 @@ from django.http import JsonResponse, HttpResponse
 # import pandas as pd
 
 from apps.classifications.models import ClassificationProcess
+from apps.classifications.serializers import ClassificationProcessesSerializer
 from apps.datasets.models import Dataset
 from apps.classifications.tasks import predict_dataset
+from django.contrib.auth.models import User
 
 @api_view(['POST'])
 @parser_classes([JSONParser])
@@ -25,12 +27,24 @@ def test_celery(request):
     model_name = 'model_name'
     dataset = Dataset.objects.get(dataset_id = dataset_id)
 
-    classification_process = ClassificationProcess(dataset_id = dataset_id, model_name = model_name)
+    classification_process = ClassificationProcess(dataset_id = dataset_id, model_name = model_name, user=request.user)
     classification_process.save()
 
     predict_dataset.delay_on_commit(dataset_id, classification_process.id, model_name)
 
     return HttpResponse(status=201)
+
+@api_view(["GET"])
+def get_user_classifications(request: HttpResponse, username):
+    try:
+        user = User.objects.get(username=username)
+    except:
+        return HttpResponseNotFound(f'user {username} not found')
+    classifications = ClassificationProcess.objects.filter(user=user.id)
+
+    serializer = ClassificationProcessesSerializer(classifications, many=True)
+
+    return JsonResponse(serializer.data, safe=False)
 
 # device = "cuda" if torch.cuda.is_available() else "cpu"
 # checkpoint = "openai/clip-vit-large-patch14"
