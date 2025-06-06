@@ -61,6 +61,7 @@ export function UserModelsPage(){
 
     return (
         <div>
+            <h1>Modelos de {username}</h1>
             { isLoading
                 ? <p>Loading...</p>
                 : <TableWithDelete headers={displayHeaders} data={models} onDeleteClick={OnDeleteClick} onDoubleClick={handleDoubleClick}/>

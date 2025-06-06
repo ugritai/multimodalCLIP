@@ -1,5 +1,5 @@
 from rest_framework.decorators import api_view, parser_classes
-from rest_framework.parsers import MultiPartParser, JSONParser
+from rest_framework.parsers import JSONParser
 from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.db import IntegrityError, transaction
 from django.contrib.auth.models import User
@@ -7,7 +7,6 @@ from apps.datasets.models import Dataset, DatasetTypes
 from apps.datasets.serializers import DatasetSerializer
 from pathlib import Path
 import os
-import pandas as pd
 from io import BytesIO
 from datasets import load_dataset
 from datasets.exceptions import DatasetNotFoundError
@@ -79,7 +78,6 @@ def upload_csv(request : HttpResponse):
         delete_file(user.username, dataset.dataset_id, dataset.dataset_name)
         return HttpResponse(ex, status=500)
 
-
 @api_view(["GET"])
 def get_user_datasets(request: HttpResponse, username):
     try:
@@ -96,7 +94,7 @@ def get_user_datasets(request: HttpResponse, username):
 def get_dataset_snippet(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
-        df = load_dataset_as_pandas(dataset)
+        df = dataset.load_dataset_as_pandas()
         
         buffer = BytesIO()
         df.sample(min(10, len(df))).to_csv(buffer, header=True, index=False)
@@ -122,7 +120,7 @@ def download_dataset(request: HttpResponse, dataset_id):
 def get_headers(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
-        df = load_dataset_as_pandas(dataset)
+        df = dataset.load_dataset_as_pandas()
     except:
         return HttpResponseNotFound(f'Dataset {dataset_id} not found')
     return JsonResponse(df.columns.tolist(), safe=False)
@@ -131,7 +129,7 @@ def get_headers(request: HttpResponse, dataset_id):
 def get_column_unique_values(request: HttpResponse, dataset_id, column_name):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
-        df = load_dataset_as_pandas(dataset)
+        df = dataset.load_dataset_as_pandas()
     except:
         return HttpResponseNotFound(f'Dataset {dataset_id} not found')
     try:
@@ -151,21 +149,3 @@ def delete_dataset(request: HttpResponse, dataset_id):
     delete_file(dataset.user.username, dataset.dataset_id, dataset.dataset_name)
     dataset.delete()
     return HttpResponse(status=204)
-
-def load_dataset_as_pandas(dataset: Dataset):
-    if dataset.dataset_type == DatasetTypes.CSV.value:
-        return load_from_disk(dataset)
-    elif dataset.dataset_type == DatasetTypes.HUGGING_FACE.value:
-        return load_from_hugging_face(dataset)
-
-def load_from_disk(dataset : Dataset):
-    file_path = f'data/{dataset.user.username}/{dataset.dataset_id}/{dataset.dataset_name}'
-    if not os.path.exists(file_path):
-        raise Exception(f'Dataset {dataset.dataset_name} not found in disk')
-    
-    df = pd.read_table(file_path, delimiter=dataset.separator, index_col=False)
-    return df
-
-def load_from_hugging_face(dataset : Dataset):
-    ds = load_dataset(dataset.dataset_name, dataset.metadata['config'], split=dataset.metadata['split'])
-    return ds.to_pandas()
