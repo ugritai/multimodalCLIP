@@ -1,6 +1,9 @@
+import os
 from django.db import models
 from django.conf import settings
 from enum import Enum
+from datasets import load_dataset
+import pandas as pd
 
 class DatasetTypes(Enum):
     CSV = 'csv'
@@ -25,3 +28,21 @@ class Dataset(models.Model):
         constraints = [
         models.UniqueConstraint(fields=['user', 'dataset_name'], name='unique filename per user')
     ]
+        
+    def load_dataset_as_pandas(self):
+        if self.dataset_type == DatasetTypes.CSV.value:
+            return self._load_from_disk()
+        elif self.dataset_type == DatasetTypes.HUGGING_FACE.value:
+            return self._load_from_hugging_face()
+
+    def _load_from_disk(self):
+        file_path = f'data/{self.user.username}/{self.dataset_id}/{self.dataset_name}'
+        if not os.path.exists(file_path):
+            raise Exception(f'Dataset {self.dataset_name} not found in disk')
+        
+        df = pd.read_table(file_path, delimiter=self.separator, index_col=False)
+        return df
+
+    def _load_from_hugging_face(self):
+        ds = load_dataset(self.dataset_name, self.metadata['config'], split=self.metadata['split'])
+        return ds.to_pandas()

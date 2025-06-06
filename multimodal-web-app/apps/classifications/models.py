@@ -18,3 +18,4 @@ class ClassificationProcess(models.Model):
     update_date = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=255, choices=STATUSES, default='IN_QUEUE')
     model_name = models.CharField(max_length=255)
+    parameters = models.JSONField()
