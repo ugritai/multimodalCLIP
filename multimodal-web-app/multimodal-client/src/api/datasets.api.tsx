@@ -41,10 +41,11 @@ export const GetUniqueDescriptions = (dataset_id : Number, class_column :string)
     return api.get(`/datasets/${dataset_id}/unique_values/${class_column}`)
 }
 
-export const UploadDataset = (dataset : File) => {
+export const UploadDataset = (dataset : File, dataset_private : boolean) => {
     const formData = new FormData();
     formData.append('file', dataset);
-    return api.put('/datasets/upload/', formData, {headers:{"Content-Type":"multipart/form-data"}})
+    formData.append('private', dataset_private.toString());
+    return api.put('/datasets/upload_csv/', formData, {headers:{"Content-Type":"multipart/form-data"}})
 }
 
 export const UploadHuggingFaceDataset = (dataset :string, config :string, split :string) => {
