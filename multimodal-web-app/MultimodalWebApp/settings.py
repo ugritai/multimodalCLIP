@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -44,7 +43,7 @@ INSTALLED_APPS = [
     'djoser',
     'coreapi',
     'django_celery_results',
-    'visualization',
+    'apps.core',
     'apps.classifications',
     'apps.accounts',
     'apps.datasets',
@@ -150,8 +149,6 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.coreapi.AutoSchema'
 }
-
-ASGI_APPLICATION = "MultimodalWebApp.asgi.application"
 
 # configure Djoser
 DJOSER = {

@@ -1,8 +1,9 @@
 from rest_framework.decorators import api_view, parser_classes
-from rest_framework.parsers import JSONParser
+from rest_framework.parsers import JSONParser, MultiPartParser
 from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
 from django.db import IntegrityError, transaction
 from django.contrib.auth.models import User
+from apps.core.permissions import owner_or_admin_required
 from apps.datasets.models import Dataset, DatasetTypes
 from apps.datasets.serializers import DatasetSerializer
 from pathlib import Path
@@ -53,17 +54,19 @@ def upload_huggingface_dataset(request : HttpResponse):
         return HttpResponse(ex, status=500)
     
 @api_view(['PUT'])
-@parser_classes([JsonResponse])
+@parser_classes([MultiPartParser])
 @transaction.atomic
 def upload_csv(request : HttpResponse):
     if 'file' not in request.FILES:
         return HttpResponseBadRequest(f'Missing field file')
     file = request.FILES['file']
     user = request.user
+    private_str = request.data.get('private', 'false')
+    private = private_str.lower() == 'true'
 
     tra = transaction.savepoint()
     try:
-        dataset = Dataset(user=user, dataset_name=file.name, dataset_type=DatasetTypes.CSV.value, separator='\t')
+        dataset = Dataset(user=user, dataset_name=file.name, dataset_type=DatasetTypes.CSV.value, separator='\t', private=private)
         dataset.save()
 
         save_file(user.username, dataset.dataset_id, dataset.dataset_name, file.read())
@@ -84,13 +87,17 @@ def get_user_datasets(request: HttpResponse, username):
         user = User.objects.get(username=username)
     except:
         return HttpResponseNotFound(f'user {username} not found')
-    datasets = Dataset.objects.filter(user_id=user.id)
+    if request.user == user or request.user.is_superuser:
+        datasets = Dataset.objects.filter(user_id=user.id)
+    else:
+        datasets = Dataset.objects.filter(user_id=user.id, private=False)
 
     serializer = DatasetSerializer(datasets, many=True)
 
     return JsonResponse(serializer.data, safe=False)
 
 @api_view(["GET"])
+@owner_or_admin_required(Dataset, 'dataset_id')
 def get_dataset_snippet(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
@@ -106,6 +113,7 @@ def get_dataset_snippet(request: HttpResponse, dataset_id):
         return HttpResponseNotFound(f'Dataset {dataset_id} not found')
 
 @api_view(["GET"])
+@owner_or_admin_required(Dataset, 'dataset_id')
 def download_dataset(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
@@ -117,6 +125,7 @@ def download_dataset(request: HttpResponse, dataset_id):
     return FileResponse(open(file_path, 'rb'), as_attachment=True)
 
 @api_view(["GET"])
+@owner_or_admin_required(Dataset, 'dataset_id')
 def get_headers(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
@@ -126,6 +135,7 @@ def get_headers(request: HttpResponse, dataset_id):
     return JsonResponse(df.columns.tolist(), safe=False)
 
 @api_view(["GET"])
+@owner_or_admin_required(Dataset, 'dataset_id')
 def get_column_unique_values(request: HttpResponse, dataset_id, column_name):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
@@ -140,6 +150,7 @@ def get_column_unique_values(request: HttpResponse, dataset_id, column_name):
     
 
 @api_view(['DELETE'])
+@owner_or_admin_required(Dataset, 'dataset_id')
 def delete_dataset(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
