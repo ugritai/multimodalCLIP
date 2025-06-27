@@ -1,8 +1,11 @@
 from rest_framework.decorators import api_view, parser_classes
-from rest_framework.parsers import JSONParser
-from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseBadRequest, HttpResponseNotFound
+from rest_framework.response import Response
+from rest_framework.parsers import JSONParser, MultiPartParser
+from rest_framework import status
+from django.http import FileResponse, JsonResponse, HttpResponse, HttpResponseBadRequest
 from django.db import IntegrityError, transaction
 from django.contrib.auth.models import User
+from apps.core.permissions import owner_or_admin_required
 from apps.datasets.models import Dataset, DatasetTypes
 from apps.datasets.serializers import DatasetSerializer
 from pathlib import Path
@@ -28,7 +31,7 @@ def delete_file(username, dataset_id, filename):
 @parser_classes([JSONParser])
 def upload_huggingface_dataset(request : HttpResponse):
     if "dataset_name" not in request.data or "config" not in request.data or "split" not in request.data:
-        return HttpResponse('Missing field \'dataset_name\', \'config\' or \'split\'', status=400)
+        return Response({'error': 'Missing field \'dataset_name\', \'config\' or \'split\''}, status=status.HTTP_400_BAD_REQUEST)
     dataset_name = request.data["dataset_name"]
     dataset_config = request.data["config"]
     dataset_split = request.data["split"]
@@ -53,17 +56,19 @@ def upload_huggingface_dataset(request : HttpResponse):
         return HttpResponse(ex, status=500)
     
 @api_view(['PUT'])
-@parser_classes([JsonResponse])
+@parser_classes([MultiPartParser])
 @transaction.atomic
 def upload_csv(request : HttpResponse):
     if 'file' not in request.FILES:
         return HttpResponseBadRequest(f'Missing field file')
     file = request.FILES['file']
     user = request.user
+    private_str = request.data.get('private', 'false')
+    private = private_str.lower() == 'true'
 
     tra = transaction.savepoint()
     try:
-        dataset = Dataset(user=user, dataset_name=file.name, dataset_type=DatasetTypes.CSV.value, separator='\t')
+        dataset = Dataset(user=user, dataset_name=file.name, dataset_type=DatasetTypes.CSV.value, separator='\t', private=private)
         dataset.save()
 
         save_file(user.username, dataset.dataset_id, dataset.dataset_name, file.read())
@@ -72,7 +77,7 @@ def upload_csv(request : HttpResponse):
         return JsonResponse(serializer.data, status=201)
     except IntegrityError:
         delete_file(user.username, dataset.dataset_id, dataset.dataset_name)
-        return HttpResponse(f'The dataset {file.name} already exists for this user', status=409)
+        return Response({'error': f'The dataset {file.name} already exists for this user'}, status=status.HTTP_409_CONFLICT)
     except Exception as ex:
         transaction.savepoint_rollback(tra)
         delete_file(user.username, dataset.dataset_id, dataset.dataset_name)
@@ -83,17 +88,35 @@ def get_user_datasets(request: HttpResponse, username):
     try:
         user = User.objects.get(username=username)
     except:
-        return HttpResponseNotFound(f'user {username} not found')
-    datasets = Dataset.objects.filter(user_id=user.id)
+        return Response({'error': f'user {username} not found'}, status=status.HTTP_404_NOT_FOUND)
+    if request.user == user or request.user.is_superuser:
+        datasets = Dataset.objects.filter(user_id=user.id)
+    else:
+        datasets = Dataset.objects.filter(user_id=user.id, private=False)
 
     serializer = DatasetSerializer(datasets, many=True)
 
     return JsonResponse(serializer.data, safe=False)
 
 @api_view(["GET"])
+def get_dataset_info(request: HttpResponse, dataset_id):
+    try:
+        dataset = Dataset.objects.get(dataset_id=dataset_id)
+        if dataset.private == True and (dataset.user == request.user or request.user.is_superuser):
+            return HttpResponse({'error': 'You do not have rights to access this resource'}, status=status.HTTP_403_FORBIDDEN)
+
+        serializer = DatasetSerializer(dataset)
+
+        return JsonResponse(serializer.data, safe=False)
+    except Exception:
+        return Response({'error': f'Dataset {dataset_id} not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(["GET"])
 def get_dataset_snippet(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
+        if dataset.private == True and (dataset.user == request.user or request.user.is_superuser):
+            return HttpResponse({'error': 'You do not have rights to access this resource'}, status=status.HTTP_403_FORBIDDEN)
         df = dataset.load_dataset_as_pandas()
         
         buffer = BytesIO()
@@ -101,37 +124,43 @@ def get_dataset_snippet(request: HttpResponse, dataset_id):
         buffer.seek(0)
 
         return FileResponse(buffer, filename=dataset.dataset_name)
-    except Exception as ex:
-        print(ex)
-        return HttpResponseNotFound(f'Dataset {dataset_id} not found')
+    except Exception:
+        return Response({'error': f'Dataset {dataset_id} not found'}, status=status.HTTP_404_NOT_FOUND)
 
 @api_view(["GET"])
 def download_dataset(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
+        if dataset.private == True and (dataset.user == request.user or request.user.is_superuser):
+            return HttpResponse({'error': 'You do not have rights to access this resource'}, status=status.HTTP_403_FORBIDDEN)
     except:
-        return HttpResponseNotFound(f'Dataset {dataset_id} not found')
+        return Response({'error': f'Dataset {dataset_id} not found'}, status=status.HTTP_404_NOT_FOUND)
     file_path = f'data/{dataset.user.username}/{dataset.dataset_id}/{dataset.dataset_name}'
     if not os.path.exists(file_path):
-        return HttpResponseNotFound(f'Dataset {dataset.dataset_name} not found in disk')
+        return Response({'error': f'Dataset {dataset_id} not found in disk'}, status=status.HTTP_404_NOT_FOUND)
+
     return FileResponse(open(file_path, 'rb'), as_attachment=True)
 
 @api_view(["GET"])
 def get_headers(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
+        if dataset.private == True and (dataset.user == request.user or request.user.is_superuser):
+            return HttpResponse({'error': 'You do not have rights to access this resource'}, status=status.HTTP_403_FORBIDDEN)
         df = dataset.load_dataset_as_pandas()
     except:
-        return HttpResponseNotFound(f'Dataset {dataset_id} not found')
+        return Response({'error': f'Dataset {dataset_id} not found'}, status=status.HTTP_404_NOT_FOUND)
     return JsonResponse(df.columns.tolist(), safe=False)
 
 @api_view(["GET"])
 def get_column_unique_values(request: HttpResponse, dataset_id, column_name):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
+        if dataset.private == True and (dataset.user == request.user or request.user.is_superuser):
+            return HttpResponse({'error': 'You do not have rights to access this resource'}, status=status.HTTP_403_FORBIDDEN)
         df = dataset.load_dataset_as_pandas()
     except:
-        return HttpResponseNotFound(f'Dataset {dataset_id} not found')
+        return Response({'error': f'Dataset {dataset_id} not found'}, status=status.HTTP_404_NOT_FOUND)
     try:
         return JsonResponse(sorted(df[column_name].astype(str).unique().tolist()), safe=False)
     except:
@@ -140,11 +169,12 @@ def get_column_unique_values(request: HttpResponse, dataset_id, column_name):
     
 
 @api_view(['DELETE'])
+@owner_or_admin_required(Dataset, 'dataset_id')
 def delete_dataset(request: HttpResponse, dataset_id):
     try:
         dataset = Dataset.objects.get(dataset_id=dataset_id)
     except:
-        return HttpResponseNotFound(f'Dataset {dataset_id} not found')
+        return Response({'error': f'Dataset {dataset_id} not found'}, status=status.HTTP_404_NOT_FOUND)
     
     delete_file(dataset.user.username, dataset.dataset_id, dataset.dataset_name)
     dataset.delete()

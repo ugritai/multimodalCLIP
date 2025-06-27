@@ -7,6 +7,7 @@ urlpatterns = [
     path('upload_huggingface/', views.upload_huggingface_dataset),
     path('<str:username>/', views.get_user_datasets),
     path('<int:dataset_id>/delete/', views.delete_dataset),
+    path('<int:dataset_id>/info/', views.get_dataset_info),
     path('<int:dataset_id>/download/', views.download_dataset),
     path('<int:dataset_id>/snippet/', views.get_dataset_snippet),
     path('<int:dataset_id>/headers/', views.get_headers),

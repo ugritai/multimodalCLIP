@@ -11,7 +11,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     }
     return (
         <div className="flex flex-col h-screen">
-            <header className="w-full bg-blue-600 p-2 fixed flex justify-end items-center">
+            <header className="w-full bg-blue-600 p-2 fixed flex justify-end items-center z-50">
                 <a href={'/account'} className="text-primary-foreground hover:text-primary flex items-center gap-2"><UserIcon/>{username}</a>
             </header>
             <div className="flex flex-1">

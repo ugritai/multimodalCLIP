@@ -42,10 +42,10 @@ def predict_dataset(classification_id:int):
         classification_process.save()
 
         predictor = classification_process.parameters['predictor']
-        if classification_process.parameters['predictor'] == "FEW_SHOT":
-            predictor = FewShotPredictor(classification_process)
-        elif classification_process.parameters['predictor'] == "ZERO_SHOT":
+        if classification_process.parameters['predictor'] == "zeroshot":
             predictor = ZeroShotPredictor(classification_process)
+        elif classification_process.parameters['predictor'] == "fewshot":
+            predictor = FewShotPredictor(classification_process)
         else:
             raise Exception(f'Predictor not supported: {predictor}')
         

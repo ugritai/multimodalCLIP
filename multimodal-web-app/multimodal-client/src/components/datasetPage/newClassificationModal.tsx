@@ -1,22 +1,24 @@
 import { PredicionModel } from "@/types/PredictionModel";
 import { useEffect, useState } from "react";
-import { ComboBox } from "../ComboBox";
 import { UserModels } from "@/api/models.api";
 import { Skeleton } from "../ui/skeleton";
 import { GetDatasetHeaders, GetUniqueDescriptions } from "@/api/datasets.api";
 import { Label } from "../ui/label";
 import { Textarea } from "../ui/textarea";
+import { UploadClassification } from "@/api/classifications.api";
+import { ClassificationUploadRequest } from "@/types/ClassificationModel";
+import { ComboBox } from "../common/ComboBox";
 
 type Props = {
         setShowModal : React.Dispatch<React.SetStateAction<boolean>>,
-        dataset_id : Number,
+        dataset_id : number,
 }
 
 type ClassificationOptions = {
     mode :string | undefined,
     predictor :string | undefined,
     fusionMethod :string | undefined,
-    model_id :number | undefined,
+    model_name :string | undefined,
     classColumn :string | undefined,
     descriptions :string[] | undefined,
     textColumn :string | undefined,
@@ -38,7 +40,9 @@ const predictors :Record<string,string> =
 
 const fusionMethods :Record<string,string> = 
 {
-    avg: "Average",
+    average: "Media",
+    sum: "Suma",
+    multiplicative: "Multiplicativo"
 }
 
 function isEmptyArray(arr: any[] | undefined) {
@@ -84,7 +88,7 @@ function CanAccept(options :ClassificationOptions){
     return isValidString(options.mode) &&
         isValidString(options.fusionMethod) &&
         isValidString(options.predictor) &&
-        options.model_id !== undefined &&
+        isValidString(options.model_name) &&
         isValidString(options.classColumn) &&
         HasDescriptions(options) &&
         (!HasToShowImages(options) || isValidString(options.imageColumn)) &&
@@ -101,7 +105,7 @@ export function NewClassificationModal(
         mode :undefined,
         predictor :undefined,
         fusionMethod :undefined,
-        model_id : undefined,
+        model_name : undefined,
         classColumn :undefined,
         descriptions :undefined,
         textColumn :undefined,
@@ -138,7 +142,20 @@ export function NewClassificationModal(
     }
 
     const handleConfirm = () => {
-        setShowModal(false);
+        const classificationConfig : ClassificationUploadRequest = {
+            dataset_id: dataset_id,
+            mode: options.mode,
+            predictor: options.predictor,
+            fusion_method: options.fusionMethod,
+            model_name: options.model_name,
+            class_column: options.classColumn,
+            descriptions: options.descriptions,
+            text_column: options.textColumn,
+            image_column: options.imageColumn,
+        }
+        UploadClassification(classificationConfig)
+        .then(() => setShowModal(false))
+        .catch(() => alert('No se pudo realizar la clasificacion'))
     };
 
     const searchValue = (value:string, collection:Record<string,string>) => {
@@ -155,8 +172,8 @@ export function NewClassificationModal(
                 <ComboBox values={Object.values(modes)} defaultText="Modo de predicción" setField={(value) => {setOptions({...options,mode:searchValue(value, modes)})}}/>
                 {options.mode && <ComboBox values={Object.values(fusionMethods)} defaultText="Método de fusión" setField={(value) => {setOptions({...options,fusionMethod:searchValue(value, fusionMethods)})}}/>}
                 {options.fusionMethod && <ComboBox values={Object.values(predictors)} defaultText="Predictor" setField={(value) => {setOptions({...options,predictor:searchValue(value, predictors)})}}/>}
-                {options.predictor && <ComboBox values={predictionModels.map((v) => v.model_name)} defaultText="Modelo" setField={(value) => {setOptions({...options,model_id:predictionModels.find((m) => m.model_name === value)?.model_id})}}/>}
-                {options.model_id && <ComboBox values={headers} defaultText="Clases" setField={(value) => {setOptions({...options,classColumn:value}); loadUniqueClasses(value);}}/>}
+                {options.predictor && <ComboBox values={predictionModels.map((v) => v.model_name)} defaultText="Modelo" setField={(value) => {setOptions({...options,model_name:value})}}/>}
+                {options.model_name && <ComboBox values={headers} defaultText="Clases" setField={(value) => {setOptions({...options,classColumn:value}); loadUniqueClasses(value);}}/>}
                 {isValidString(options.classColumn) && 
                     getDescriptionTextBoxes()}
                 {HasDescriptions(options) && HasToShowImages(options) &&

@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpResponseNotFound, JsonResponse
 from django.contrib.auth.models import User
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import JSONParser
+from apps.core.permissions import owner_or_admin_required
 from apps.prediction_models.models import HuggingFaceModel
 from apps.prediction_models.serializers import HuggingFaceModelSerializer
 
@@ -31,15 +32,12 @@ def upload_model(request : HttpResponse):
 
 @api_view(['DELETE'])
 @parser_classes([JSONParser])
+@owner_or_admin_required(HuggingFaceModel, 'model_id')
 def delete_model(request : HttpResponse, model_id):
     try:
         model = HuggingFaceModel.objects.get(model_id=model_id)
     except:
         return HttpResponseNotFound(f'Model {model_id} not found')
-    
-    user = request.user
-    if model.user != user:
-        return HttpResponse('Only the owner can delete', status=403)    
     model.delete()
     
     return HttpResponse(status=204)

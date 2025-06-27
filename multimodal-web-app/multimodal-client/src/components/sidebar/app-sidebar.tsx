@@ -1,8 +1,9 @@
-import { BookUser, FlaskConical, Inbox, Combine, Settings } from "lucide-react"
+import { BookUser, FlaskConical, LogOut, Combine, Settings } from "lucide-react"
  
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarMenu,
@@ -45,8 +46,8 @@ export function AppSidebar() {
     }
   ]
   return (
-    <Sidebar variant="sidebar" collapsible="icon" className="top-10">
-      <SidebarContent>
+    <Sidebar variant="sidebar" collapsible="icon">
+      <SidebarContent className="md:mt-10">
         <SidebarGroup>
           <SidebarGroupContent>
             <SidebarMenu>
@@ -64,6 +65,18 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton asChild>
+              <a href="/logout">
+                <LogOut/>
+                <span>Cerrar sesión</span>
+              </a>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
+      </SidebarFooter>
     </Sidebar>
   )
 }

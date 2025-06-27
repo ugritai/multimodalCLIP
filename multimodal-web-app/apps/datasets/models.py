@@ -20,6 +20,7 @@ class Dataset(models.Model):
     dataset_type = models.CharField(max_length=255, choices=DATASET_TYPES)
     separator = models.CharField(max_length=1, null=True)
     metadata = models.JSONField(null=True)
+    private  = models.BooleanField(default=False)
 
     def __str__(self):
         return self.dataset_name

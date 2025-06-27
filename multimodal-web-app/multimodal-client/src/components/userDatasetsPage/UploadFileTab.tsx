@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Input } from "../ui/input";
 import { UploadDataset } from "@/api/datasets.api";
+import { Checkbox } from "../ui/checkbox";
+import { Label } from "../ui/label";
 
 export function UploadFileTab(
 {
@@ -16,6 +18,8 @@ export function UploadFileTab(
     const disabledButtonStyle = "px-4 py-2 bg-gray-500 text-white rounded";
     const [file, setFile] = useState<File>();
     const [addButtonDisabled, setAddButtonDisabled] = useState<boolean>(true);
+    const [isPrivate, setIsPrivate] = useState(false);
+
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files ? event.target.files[0] : null;
         if (selectedFile) {
@@ -28,7 +32,7 @@ export function UploadFileTab(
     };
     const uploadFileDataset = () => {
         if(file){
-            UploadDataset(file)
+            UploadDataset(file, isPrivate)
             .then(() => {
                 setReloadDatasets([]);
                 setShowModal(false);
@@ -43,6 +47,10 @@ export function UploadFileTab(
         <div>
             <h2 className="text-xl font-semibold mb-4">Añadir archivo</h2>
             <Input id="csvFile" type="file" onChange={handleFileChange}/>
+            <div className="flex items-center gap-3 mt-2">
+                <Checkbox id="private" checked={isPrivate} onCheckedChange={(checked) => setIsPrivate(!!checked)}/>
+                <Label>Dataset privado</Label>
+            </div>
             <div className="flex gap-1 mt-2">
                 <button
                 onClick={() => uploadFileDataset()}

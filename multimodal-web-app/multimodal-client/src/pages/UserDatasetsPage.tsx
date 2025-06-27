@@ -5,16 +5,7 @@ import { AddDatasetModal } from "@/components/userDatasetsPage/AddDatasetModal";
 import { ConfirmDeleteModal } from "@/components/common/ConfirmDeleteModal";
 import LeftDownAddButton from "@/components/common/AddButtonModal";
 import { TableWithDelete } from "@/components/common/TableWithDelete";
-
-type Dataset = {
-    dataset_id: Number,
-    dataset_name: string,
-    upload_date: string,
-    dataset_type: string,
-    separator: string,
-    metadata: string,
-    user: Number
-}
+import { Dataset } from "@/types/DatasetModel";
 
 export function UserDatasetsPage() {
     const displayHeaders :Record<string,string> = 
@@ -77,12 +68,13 @@ export function UserDatasetsPage() {
 
     return (
         <div>
-            <h1>Datasets de {username}</h1>
+            <h1 className="text-2xl font-semibold">Datasets de {username}</h1>
             {isLoading
                 ? <p>Loading...</p>
                 : <TableWithDelete 
                     headers={displayHeaders} 
                     data={datasets}
+                    isOwner={isOwner}
                     onDoubleClick={OnDoubleClick}
                     onDeleteClick={OnDeleteClick}
                     />
