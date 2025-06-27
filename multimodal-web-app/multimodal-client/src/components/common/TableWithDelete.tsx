@@ -6,7 +6,6 @@ import {
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
-import { useParams } from "react-router-dom";
 import { Button } from "../ui/button";
 import { ArrowDownUp, Trash } from "lucide-react";
 import { useState } from "react";
@@ -15,20 +14,18 @@ type Props = {
         headers : Record<string,string>,
         data : any[],
         nElements? : number | undefined,
+        isOwner? : boolean,
         onDeleteClick : React.MouseEventHandler<HTMLButtonElement>,
         onDoubleClick : React.MouseEventHandler<HTMLTableRowElement>,
-}
+};
 
-export function TableWithDelete ({headers, data, nElements, onDeleteClick, onDoubleClick} : Props) {
-    const {username} = useParams();
+export function TableWithDelete ({headers, data, nElements, isOwner, onDeleteClick, onDoubleClick} : Props) {
     const sortingKvp: Record<string, boolean> = Object.keys(headers).reduce((acc, key) => {
         acc[key] = false;
         return acc;
         }, {} as Record<string, boolean>);
     const [sortColumn] = useState<Record<string,boolean>>(sortingKvp);
     const [_, setRender] = useState(false);
-    const loggedUser = window.localStorage.getItem("username");
-    const isOwner = (username == loggedUser);
 
 
     const GetDisplayData = () => {

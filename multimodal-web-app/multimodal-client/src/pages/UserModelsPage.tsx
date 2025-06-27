@@ -61,10 +61,15 @@ export function UserModelsPage(){
 
     return (
         <div>
-            <h1>Modelos de {username}</h1>
+            <h1 className="text-2xl font-semibold">Modelos de {username}</h1>
             { isLoading
                 ? <p>Loading...</p>
-                : <TableWithDelete headers={displayHeaders} data={models} onDeleteClick={OnDeleteClick} onDoubleClick={handleDoubleClick}/>
+                : <TableWithDelete 
+                    headers={displayHeaders}
+                    data={models}
+                    isOwner={isOwner}
+                    onDeleteClick={OnDeleteClick}
+                    onDoubleClick={handleDoubleClick}/>
             }
             {isOwner && <LeftDownAddButton onClick={handleAddClick}/>}
             

@@ -10,10 +10,10 @@ def owner_or_admin_required(model_class, lookup_url_kwarg='pk', user_field='user
                 obj_id = kwargs.get(lookup_url_kwarg)
                 obj = model_class.objects.get(pk=obj_id)
             except model_class.DoesNotExist:
-                return Response({'error': 'Objeto no encontrado'}, status=status.HTTP_404_NOT_FOUND)
+                return Response({'error': 'Object not found'}, status=status.HTTP_404_NOT_FOUND)
 
             if getattr(obj, user_field) != request.user and not request.user.is_superuser:
-                return Response({'error': 'No tienes permiso para acceder a este recurso'}, status=status.HTTP_403_FORBIDDEN)
+                return Response({'error': 'You do not have rights to access this resource'}, status=status.HTTP_403_FORBIDDEN)
 
             return view_func(request, *args, **kwargs)
         return _wrapped_view
