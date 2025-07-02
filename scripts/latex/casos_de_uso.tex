@@ -1,0 +1,1297 @@
+\subsubsection{Caso de Uso: Crear Usuario}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Crear Usuario} & \textbf{CU-01} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Administrador}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & RF-2 & \\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El nombre de usuario no debe pertenecer a un usuario existente} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario se habrá creado correctamente} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Crear un nuevo usuario \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Un administrador creará un nuevo usuario desde el panel de administración \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+      1 & Administrador: Accede al panel de administración &  &  \\
+      \hline
+      2 & Administrador: Selecciona la creación de un nuevo y rellena los datos que se le solicitan &  &  \\
+      \hline
+       &  & 3 & Se comprueba que el nombre de usuario sea válido \\
+      \hline
+       &  & 4 & Se crea un nuevo usuario en la base de datos \\
+      \hline
+      5 & Administrador: Recibe una respuesta existosa &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+      3a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si ya existe un usuario con el nombre de usuario especificado se devolverá un error} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Muy Baja & \textbf{Rendimiento} & Alta \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Eliminar Usuario}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Eliminar Usuario} & \textbf{CU-02} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Administrador}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & RF-3 & CU-7, CU-11, CU-14\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario existe en el sistema} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario se habrá borrado del sistema} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Borrar un usuario existente \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      El administrador borrará un usuario existente desde el panel de administración \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+      1 & Administrador: Accede al panel de administración &  &  \\
+      \hline
+      2 & Administrador: Selecciona la la eliminación de un usuario &  &  \\
+      \hline
+       &  & 3 & Se borran los recursos asociados al usuario (datasets, modelos y clasificaciones) \\
+      \hline
+       &  & 4 & Se elimina al usuario de la base de datos \\
+      \hline
+      5 & Administrador: Recibe una respuesta existosa &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Muy baja & \textbf{Rendimiento} & Alta \\
+        \hline
+        \textbf{Importancia} & Media & \textbf{Urgencia} & Baja \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Iniciar sesión}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Iniciar sesión} & \textbf{CU-03} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Visitante, Usuario(Secundario)}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & RF-4, RF-5 & \\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario no está autenticado en el sistema} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El rol del actor pasará a ser Usuario} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Iniciar sesión en la aplicación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Un visitante iniciará sesión en el sistema con una cuenta existente \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+      1 & Visitante: Entrará a la página de inicio de sesión &  &  \\
+      \hline
+      2 & Visitante: Introducirá sus datos de usuario en el formulario &  &  \\
+      \hline
+       &  & 3 & Se valida que el nombre de usuario y contraseña sean correctos \\
+      \hline
+       &  & 4 & Se guarda el token de sesión en el cliente \\
+      \hline
+      5 & Usuario: Se redirigirá a la pantalla de inicio del usuario &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+      3a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si el nombre de usuario o contraseña no son válidos se devolverá un error al usuario y se mantendrá en la página de inicio de sesión} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Baja & \textbf{Rendimiento} & Alto \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{El token de autenticación se guardará en el cliente, permitiendo al usuario mantener su sesión iniciada sin tener que repetir el proceso cada vez}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Modificar Contraseña}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Modificar Contraseña} & \textbf{CU-04} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & RF-20 & \\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{La contraseña del usuario se habrá actualizado en la base de datos} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Modificar la contraseña del usuario \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Un usuario podrá modificar su contraseña desde la página de usuario \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+      1 & Usuario: Entrará al panel de gestión de usuario &  &  \\
+      \hline
+      2 & Usuario: Rellenará el formulario de cambio de contraseña especificando su contraseña actual y la contraseá nueva &  &  \\
+      \hline
+       &  & 3 & Se valida que la contraseña proporcionada sea correcta \\
+      \hline
+       &  & 4 & Se modifica la contraseña del usuario en la base de datos \\
+      \hline
+      5 & Usuario: Recibirá una respuesta exitosa del sistema &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+      3a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si la contraseña actual proporcionada no es correcta se devolverá un mensaje de error al usuario} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Muy baja & \textbf{Rendimiento} & Alta \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Baja \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Cerrar Sesión}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Cerrar Sesión} & \textbf{CU-05} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario, Visitante(Secundario)}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & RF-6 & \\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El rol del actor pasará a ser Visitante} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir cerrar sesión al Usuario \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      El usuario cerrará sesión en la aplicación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+      1 & Usuario: Interactuará con el botón de cierre de sesión &  &  \\
+      \hline
+       &  & 2 & Se borrará del cliente el token de autenticación \\
+      \hline
+       &  & 3 & Se invalidará el token de autenticación en la base de datos \\
+      \hline
+      4 & Visitante: Se le redigirá a la página de inicio de sesión &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Baja & \textbf{Rendimiento} & Alto \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Baja \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{El token de autenticación se borrará del cliente}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Subir Dataset}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Subir Dataset} & \textbf{CU-06} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & RF-7, RNF-2 & \\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario no tiene subido ese dataset en el sistema} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Se subirá el dataset al sistema} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      El usuario podrá subir un dataset al sistema \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      El usuario seleccionará subir un nuevo dataset al sistema, ya sea desde un fichero local o cargando el dataset desde HuggingFace \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+      1 & Usuario: Seleccionará añadir un nuevo dataset &  &  \\
+      \hline
+      2 & Usuario: Seleccionará el dataset que quiera subir &  &  \\
+      \hline
+       &  & 3 & Se creará una nueva entrada en la base de datos con el dataset creado \\
+      \hline
+      4 & Usuario: Recibirá una respuesta exitosa &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+      2a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{El usuario podrá subir el dataset desde un fichero local, pudiendo marcar este como privado} \\
+      \hline
+      2b & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{El usuario podrá buscar un dataset existente en HuggingFace y subirlo al sistema} \\
+      \hline
+      3a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si el dataset se ha cargado desde un fichero local se guardará en el servidor} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Media & \textbf{Rendimiento} & Medio \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Borrar Dataset}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Borrar Dataset} & \textbf{CU-07} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario Propietario, Administrador}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & RF-15 & CU-02\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El dataset tiene que existir en el sistema} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Listar Datasets}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Listar Datasets} & \textbf{CU-08} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Inspeccionar Dataset}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Inspeccionar Dataset} & \textbf{CU-09} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Subir Modelo}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Subir Modelo} & \textbf{CU-10} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Borrar Modelo}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Borrar Modelo} & \textbf{CU-11} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Listar Modelos}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Listar Modelos} & \textbf{CU-12} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Realizar Clasificación}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Realizar Clasificación} & \textbf{CU-13} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Borrar Clasificación}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Borrar Clasificación} & \textbf{CU-14} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Listar Clasificaciones}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Listar Clasificaciones} & \textbf{CU-15} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}\subsubsection{Caso de Uso: Ver Resultados}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Ver Resultados} & \textbf{CU-16} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & CU000 & CU001\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      Permitir acceso seguro \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      Caso de uso para autenticación \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}
+    |>{\centering\arraybackslash}p{0.5cm}
+    |>{\raggedright\arraybackslash}p{4.9cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+       &  &  &  \\
+      \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      \hline
+\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \hline
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \hline
+        \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \hline
+    \end{tabularx}
+\end{table}
