@@ -614,7 +614,7 @@
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & RF-11, RF-12 & CU-06, CU-07\\
+      \textbf{Referencias} & RF-11, RF-12 & \\
       \hline
       \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario del que se quieren listar los datasets debe existir} \\
       \hline
@@ -636,7 +636,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Un usuario podrá ver el listado de datasets de cualquier usuario, siempre que sean públicos o sea propietario/.Los propietarios podrán borrar o añadir nuevos datasets \\
+      Un usuario podrá ver el listado de datasets de cualquier usuario, siempre que sean públicos o sea propietario. \\
       \hline
     \end{tabularx}
 \end{table}
@@ -654,7 +654,7 @@
       \hline
        &  & 2 & Se comprobará que el usuario que ha solicitado los datasets es administrador o propietario \\
       \hline
-       &  & 3 & Se obtendrán de base de datos la lista de datasets relacionados con el usuario objetivo a los que el usuario solicitante tiene permiso \\
+       &  & 3 & Se obtendrán de la base de datos la lista de datasets relacionados con el usuario objetivo a los que el usuario solicitante tiene permiso \\
       \hline
       4 & Usuario: Recibirá una lista de datasets que ha subido el usuario especificado &  &  \\
       \hline
@@ -734,23 +734,21 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-      1 & El usuario accederá a la visualización de un dataset &  &  \\
+      1 & Usuario: Accederá a la visualización de un dataset &  &  \\
       \hline
-       &  & 2 & Se obtendrá la información relacionada al dataset de la base de datos \\
+       &  & 2 & Se comprobará si el usuario tiene permisos para acceder al dataset \\
       \hline
-       &  & 3 & Se obtendrá una previsualización de los datos del dataset \\
+       &  & 3 & Se obtendrá la información relacionada al dataset de la base de datos \\
       \hline
-       &  & 4 &  \\
+       &  & 4 & Se obtendrá una previsualización de los datos del dataset \\
       \hline
-       &  &  &  \\
+       &  & 5 & Se obtendrá la lista de clasificaciones realizadas al dataset \\
       \hline
-       &  &  &  \\
-      \hline
-       &  &  &  \\
+      6 & Usuario: Recibirá la información relacionada con el dataset &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
-       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      2a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si el dataset es privado y el usuario no es el propietario ni administrador, se devolverá un error de permisos} \\
       \hline
 \end{tabularx}
 \begin{table}[H]
@@ -788,11 +786,11 @@
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-9, RNF-3 & \\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El modelo debe existir en HuggingFace y el usuario no debe haber subido ya ese modelo al sistema} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Se añadirá el modelo al sistema} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -801,7 +799,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Permitir al usuario subir un modelo de clasificación al sistema \\
       \hline
     \end{tabularx}
 \end{table}
@@ -810,7 +808,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      El usuario subirá un modelo al sistema. Para ello podrá buscar en HuggingFace un modelo existente y seleccionarlo. \\
       \hline
     \end{tabularx}
 \end{table}
@@ -824,11 +822,25 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Seleccionará añadir un nuevo modelo &  &  \\
+      \hline
+      2 & Usuario: Introducirá el nombre del modelo en el campo de búsqueda &  &  \\
+      \hline
+       &  & 3 & El sistema buscará los modelos que tengan ese nombre en HHuggingFace \\
+      \hline
+      4 & Usuario: recibirá una lista con los modelos que contienen el nombre buscado &  &  \\
+      \hline
+      5 & Usuario: Seleccionará uno de los modelos &  &  \\
+      \hline
+       &  & 6 & El sistema guardará el modelo seleccionado en el sistema \\
+      \hline
+      7 & Usuario: Recibirá una respuesta existosa &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
-       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      3a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si no se encuentra ningún modelo con el nombre proporcionado el sistema informará de ello al usuario y volverá al paso 2} \\
+      \hline
+      6a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si el modelo ya está subido en el sistema por el usuario se devolverá un mensaje de error al usuario} \\
       \hline
 \end{tabularx}
 \begin{table}[H]
@@ -841,7 +853,7 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Media & \textbf{Rendimiento} & Alto \\
         \hline
         \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
         \hline
@@ -849,7 +861,7 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
         \hline
     \end{tabularx}
 \end{table}\subsubsection{Caso de Uso: Borrar Modelo}
@@ -866,11 +878,11 @@
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-16-RF-19 & CU-02\\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El modelo debe existir en el sistema} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Se borrará el modelo del sistema} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -879,7 +891,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Permitir al usuario borrar los modelos \\
       \hline
     \end{tabularx}
 \end{table}
@@ -888,7 +900,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      Un usuario o administrador podrá borrar un dataset existente en el sistema \\
       \hline
     \end{tabularx}
 \end{table}
@@ -902,7 +914,11 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Seleccionará el modelo a borrar y se le solicitará confirmación antes de borrarlo &  &  \\
+      \hline
+       &  & 2 & Se borrará el modelo de la base de datos \\
+      \hline
+      3 & Usuario: Recibirá una respuesta exitosa &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
@@ -919,15 +935,15 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Baja & \textbf{Rendimiento} & Alta \\
         \hline
-        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Baja \\
         \hline
         \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
         \hline
     \end{tabularx}
 \end{table}\subsubsection{Caso de Uso: Listar Modelos}
@@ -944,11 +960,11 @@
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-13 & \\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario del que se quieren listar los datasets debe existir} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -957,7 +973,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Mostrar el listado de modelos que ha subido un usuario. \\
       \hline
     \end{tabularx}
 \end{table}
@@ -966,7 +982,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      Un usuario podrá ver el listado de modelos de cualquier usuario. \\
       \hline
     \end{tabularx}
 \end{table}
@@ -980,7 +996,11 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Seleccionará ver los modelos de un usuario en concreto &  &  \\
+      \hline
+       &  & 2 & Se obtendrán de la base de datos la lista de modelos subidos por el usuario objetivo \\
+      \hline
+      3 & Usuario: Recibirá una lista de modelos que ha subido el usuario especificado &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
@@ -997,7 +1017,7 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Alto \\
         \hline
         \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
         \hline
@@ -1005,7 +1025,7 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
         \hline
     \end{tabularx}
 \end{table}\subsubsection{Caso de Uso: Realizar Clasificación}
@@ -1015,18 +1035,18 @@
         \hline
         \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Realizar Clasificación} & \textbf{CU-13} \\
         \hline
-        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario Propietario, Administrador}\\
         \hline
         \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
         \hline
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-10, RF-13, RNF-4 & \\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El dataset al que se quiere realizar la clasificación debe existir en el sistema} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Se creará una tarea para ejecutar la clasificación} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1035,7 +1055,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Clasificar un dataset \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1044,7 +1064,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      Un usuario podrá ejecutar una clasificación de la que sea propietario \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1058,11 +1078,29 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Seleccionará realizar una nueva clasificación de un dataset. &  &  \\
+      \hline
+       &  & 2 & El sistema obtendrá todos los modelos subidos por el usuario. \\
+      \hline
+       &  & 3 & El sistema obtendrá todos los nombres de las columnas del dataset. \\
+      \hline
+      4 & Usuario: Irá seleccionando los parámetros de la clasificación de uno en uno hasta que seleccione la columna en la que se encuentran las clases del dataset. &  &  \\
+      \hline
+       &  & 5 & El sistema obtendrá los valores diferentes de esa columna y le permitirá al usuario escribir una descripción por cada clase. \\
+      \hline
+      6 & Usuario: Seleccionará el resto de parámetros de la clasificación. &  &  \\
+      \hline
+       &  & 7 & El sistema guardará la clasificación en la base de datos y pondrá la tarea en cola para que el gestor de tareas en background la procese cuando esté disponible \\
+      \hline
+      8 & Usuario: Recibirá una respuesta exitosa del sistema. &  &  \\
+      \hline
+       &  & 9 & El gestor de colas obtendrá la tarea de la cola y actualizará el estado de la clasificación. \\
+      \hline
+       &  & 10 & Una vez terminada la clasificación, se guardará el resultado en disco y se actualizará el estado en la base de datos. \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
-       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      5a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si la columna seleccionada tiene demasiados valores diferentes se pedirá al usuario que seleccione otra.} \\
       \hline
 \end{tabularx}
 \begin{table}[H]
@@ -1075,7 +1113,7 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Media & \textbf{Rendimiento} & Bajo \\
         \hline
         \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
         \hline
@@ -1083,7 +1121,7 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{La creación de la clasificación, la puesta en cola y la respuesta al usuario deben ser rápidas, pero el tiempo que tarde en realizarse la clasificación dependerá del número de datos con los que se quiera realizar la clasificación.}\\
         \hline
     \end{tabularx}
 \end{table}\subsubsection{Caso de Uso: Borrar Clasificación}
@@ -1093,18 +1131,18 @@
         \hline
         \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{Borrar Clasificación} & \textbf{CU-14} \\
         \hline
-        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario}\\
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario Propietario, Administrador}\\
         \hline
         \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Primario} \\
         \hline
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-17, RF-19 & CU-02\\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{La clasificación tiene que existir en el sistema} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{La clasificación se borrará del sistema} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1113,7 +1151,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Borrar una clasificación de un usuario \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1122,7 +1160,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      Un usuario o administrador podrá borrar una clasificación existente en el sistema \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1136,7 +1174,13 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Seleccionará la clasificación a borrar y se le solicitará confirmación antes de borrarlo &  &  \\
+      \hline
+       &  & 2 & Se borrarán los ficheros físicos asociados a la clasificación \\
+      \hline
+       &  & 3 & Se borrará la clasificación de la base de datos \\
+      \hline
+      4 & Usuario: Recibirá una respuesta exitosa &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
@@ -1153,15 +1197,15 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Baja & \textbf{Rendimiento} & Alto \\
         \hline
-        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Baja \\
         \hline
         \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
         \hline
     \end{tabularx}
 \end{table}\subsubsection{Caso de Uso: Listar Clasificaciones de un usuario}
@@ -1178,11 +1222,11 @@
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-14 & \\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El usuario del que se quieren listar las clasificaciones debe existir} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1191,7 +1235,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Mostrar el listado de clasificaciones que ha subido un usuario \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1200,7 +1244,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      Un usuario podrá ver el listado de clasificaciones de cualquier usuario, siempre que sean clasificaciones de datasets públicos o sea propietario \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1214,7 +1258,13 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Seleccionará ver las clasificaciones de un usuario en concreto &  &  \\
+      \hline
+       &  & 2 & Se comprobará que el usuario que ha solicitado las clasificaciones es administrador o es propietario de las clasificaciones solicitadas \\
+      \hline
+       &  & 3 & Se obtendrán de la base de datos la lista de clasificaciones relacionados con el usuario objetivo a los que el usuario solicitante tiene permiso \\
+      \hline
+      4 & Usuario: Recibirá una lista de clasificaciones que ha subido el usuario especificado &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
@@ -1231,15 +1281,15 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Alto \\
         \hline
-        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Media \\
         \hline
         \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
         \hline
     \end{tabularx}
 \end{table}\subsubsection{Caso de Uso: Listar Clasificaciones de un dataset}
@@ -1256,11 +1306,11 @@
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-14 & CU-09\\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{El dataset del que se quieren listar las clasificaciones debe existir} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1269,7 +1319,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Mostrar el listado de clasificaciones realizadas a un dataset \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1278,7 +1328,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      Un usuario podrá ver el listado de clasificaciones de cualquier dataset \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1292,11 +1342,17 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Seleccionará ver las clasificaciones de un dataset en concreto &  &  \\
+      \hline
+       &  & 2 & Se comprobará que el usuario que ha solicitado las clasificaciones es administrador o es propietario de las clasificaciones solicitadas \\
+      \hline
+       &  & 3 & Se obtendrán de la base de datos la lista de clasificaciones relacionados con el dataset objetivo \\
+      \hline
+      4 & Usuario: Recibirá una lista de clasificaciones realizadas al dataset &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
-       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      2a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si el usuario no tiene permiso para ver el dataset se devolverá un mensaje de error al usuario.} \\
       \hline
 \end{tabularx}
 \begin{table}[H]
@@ -1309,15 +1365,15 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Alto \\
         \hline
-        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Media \\
         \hline
         \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
         \hline
     \end{tabularx}
 \end{table}\subsubsection{Caso de Uso: Ver Resultados de una clasificación}
@@ -1334,11 +1390,11 @@
    \end{tabularx}
    \vspace{-1.1em}
   \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
-      \textbf{Referencias} & CU000 & CU001\\
+      \textbf{Referencias} & RF-14 & \\
       \hline
-      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Aplicación instalada} \\
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{La clasificación tiene que existir en el sistema} \\
       \hline
-      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{Usuario autenticado} \\
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{} \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1347,7 +1403,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Propósito} \\
       \hline
-      Permitir acceso seguro \\
+      Ver el estado, los parametros y los resultados de una clasificación. \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1356,7 +1412,7 @@
       \hline
       \rowcolor{\headerColor}\textbf{Resumen} \\
       \hline
-      Caso de uso para autenticación \\
+      Un usuario accederá a los resultados de una clasificación, donde podrá observar los parámetros con los que se ha realizado, el estado actual y los resultados obtenidos. \\
       \hline
     \end{tabularx}
 \end{table}
@@ -1370,11 +1426,19 @@
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
     \hline
     \endfirsthead
-       &  &  &  \\
+      1 & Usuario: Accederá a la visualización de una clasificación &  &  \\
+      \hline
+       &  & 2 & Se comprobará si el usuario tiene permisos para acceder a la clasificación \\
+      \hline
+       &  & 3 & Se obtendrá la información relacionada a la clasificación de la base de datos \\
+      \hline
+       &  & 4 & Se obtendrá de disco el resultado si la clasificación ha terminado \\
+      \hline
+      5 & Usuario: Recibirá la información relacionada con la clasificación &  &  \\
       \hline
     \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
     \hline
-       & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{} \\
+      2a & \multicolumn{3}{|>{\raggedright\arraybackslash}X|}{Si el dataset asociado es privado y el usuario no es el propietario ni administrador, se devolverá un error de permisos} \\
       \hline
 \end{tabularx}
 \begin{table}[H]
@@ -1387,15 +1451,15 @@
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
         \hline
-        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Menos de 2 segundos \\
+        \textbf{Frecuencia esperada} & Alta & \textbf{Rendimiento} & Medio \\
         \hline
-        \textbf{Importancia} & Alta & \textbf{Urgencia} & Alta \\
+        \textbf{Importancia} & Alta & \textbf{Urgencia} & Media \\
         \hline
         \textbf{Estado} & Realizado & \textbf{Estabilidad} & Alta \\
         \hline
         \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
         \hline
-        \multicolumn{4}{|>{\centering\arraybackslash}X|}{Funcionalidad crítica}\\
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{}\\
         \hline
     \end{tabularx}
 \end{table}
