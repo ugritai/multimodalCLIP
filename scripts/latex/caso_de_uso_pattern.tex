@@ -1,0 +1,75 @@
+\subsubsection{Caso de Uso: #titulo}
+\begin{table}[H]
+    \renewcommand{\arraystretch}{1.3}
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{6.9cm}|>{\centering\arraybackslash}m{1.94cm}|}
+        \hline
+        \rowcolor{\headerColor}\textbf{Caso de Uso} & \textbf{#titulo} & \textbf{#id} \\
+        \hline
+        \textbf{Actores} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{#actores}\\
+        \hline
+        \textbf{Tipo} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{#tipo} \\
+        \hline
+   \end{tabularx}
+   \vspace{-1.1em}
+  \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{4.42cm}|>{\centering\arraybackslash}m{4.42cm}|}
+      \textbf{Referencias} & #requisitos & #casoDeUso\\
+      \hline
+      \textbf{Precondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{#precondicion} \\
+      \hline
+      \textbf{Postcondición} & \multicolumn{2}{|>{\raggedright\arraybackslash}X|}{#postcondicion} \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Propósito} \\
+      \hline
+      #proposito \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{|>{\centering\arraybackslash}m{12.2cm}|}
+      \hline
+      \rowcolor{\headerColor}\textbf{Resumen} \\
+      \hline
+      #resumen \\
+      \hline
+    \end{tabularx}
+\end{table}
+\begin{tabularx}{\linewidth}{
+    |>{\centering\arraybackslash}p{0.3cm}
+    |>{\raggedright\arraybackslash}p{5.1cm}
+    |>{\centering\arraybackslash}p{0.3cm}
+    |>{\raggedright\arraybackslash}p{5.1cm}|
+  }
+    \hline
+    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Normal}} \\
+    \hline
+    \endfirsthead
+#flujo    \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Curso Alterno}} \\
+    \hline
+#flujoAlterno\end{tabularx}
+\begin{table}[H]
+    \begin{tabularx}{\linewidth}{
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}
+      |>{\centering\arraybackslash}p{2.4cm}
+      |>{\raggedright\arraybackslash}p{3cm}|
+    }
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Otros Datos}} \\
+        \hline
+        \textbf{Frecuencia esperada} & #frecuencia & \textbf{Rendimiento} & #rendimiento \\
+        \hline
+        \textbf{Importancia} & #importancia & \textbf{Urgencia} & #urgencia \\
+        \hline
+        \textbf{Estado} & #estado & \textbf{Estabilidad} & #estabilidad \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}m{12.2cm}|}{\cellcolor{\headerColor}\textbf{Comentarios}} \\
+        \hline
+        \multicolumn{4}{|>{\centering\arraybackslash}X|}{#comentarios}\\
+        \hline
+    \end{tabularx}
+\end{table}
