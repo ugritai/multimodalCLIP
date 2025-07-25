@@ -99,7 +99,7 @@ def get_classifications_result(request: HttpResponse, classification_id):
             return JsonResponse(data['result'], safe=False)
     else:
         return HttpResponse(status=204)
-    
+  
 @api_view(['DELETE'])
 @owner_or_admin_required(ClassificationProcess, 'classification_id')
 def delete_classification(request: HttpResponse, classification_id):
