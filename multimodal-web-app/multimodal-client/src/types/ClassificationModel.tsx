@@ -12,6 +12,8 @@ export type Classification = {
 export type ClassificationParameters = {
     mode: string,
     predictor: string,
+    sample_size: number,
+    reference_sample_size: number,
     fusion_method: string,
     class_column: string,
     descriptions: string[],
@@ -23,6 +25,8 @@ export type ClassificationUploadRequest = {
     dataset_id: number,
     mode: string | undefined,
     predictor: string | undefined,
+    sample_size: number | undefined,
+    reference_sample_size: number | undefined,
     fusion_method: string | undefined,
     model_name: string | undefined,
     class_column: string | undefined,

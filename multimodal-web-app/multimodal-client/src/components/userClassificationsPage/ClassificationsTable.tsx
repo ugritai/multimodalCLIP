@@ -1,4 +1,4 @@
-import { DeleteClassification, UserClassifications } from "@/api/classifications.api";
+import { DatasetClassifications, DeleteClassification, UserClassifications } from "@/api/classifications.api";
 import { ConfirmDeleteModal } from "@/components/common/ConfirmDeleteModal";
 import { TableWithDelete } from "@/components/common/TableWithDelete";
 import { Classification } from "@/types/ClassificationModel";
@@ -7,10 +7,11 @@ import { useNavigate } from "react-router-dom";
 
 type Props = {
         username : string,
+        dataset? : number,
 }
 
 export function ClassificationsTable(
-    {username} :Props){
+    {username, dataset} :Props){
     const displayHeaders :Record<string,string> = 
     {
         dataset: "Dataset",
@@ -29,13 +30,23 @@ export function ClassificationsTable(
     const [reloadClassifications, setReloadClassifications] = useState([]);
 
     useEffect(() => {
-        UserClassifications(username ?? "").then( 
-            (data) => {
-                setClassifications(data.data);
-                setLoading(false)
-            }
-        )
-    }, [reloadClassifications])
+        if(dataset !== undefined){
+            DatasetClassifications(dataset).then(
+                (data) => {
+                    setClassifications(data.data);
+                    setLoading(false)
+                }
+            );
+        }
+        else{
+            UserClassifications(username ?? "").then( 
+                (data) => {
+                    setClassifications(data.data);
+                    setLoading(false)
+                }
+            );
+        }
+    }, [reloadClassifications]);
 
     const OnDoubleClick = (e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) => {
         const row = e.currentTarget;

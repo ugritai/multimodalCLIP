@@ -21,3 +21,6 @@ class NewClassificationRequestSerializer(serializers.Serializer):
     )
     text_column = serializers.CharField()
     image_column = serializers.CharField()
+    
+    sample_size = serializers.IntegerField()
+    reference_sample_size = serializers.IntegerField(required=False)

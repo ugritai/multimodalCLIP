@@ -21,11 +21,10 @@ export const ChangePassword = ( current_password : string, new_password : string
 {
     const json = JSON.stringify({current_password: current_password, new_password: new_password});
     const token = window.localStorage.getItem('token');
-    window.localStorage.clear();
     return api.post("/password/change/", json,
         {headers:
             {
-                'Authorization':'Token' + token,
+                'Authorization':'Token ' + token,
                 'Content-Type':'application/json'
             }});
 }

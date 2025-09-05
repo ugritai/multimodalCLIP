@@ -1,14 +1,13 @@
 import {
     Table,
     TableBody,
-    TableCell,
     TableHead,
     TableHeader,
     TableRow,
   } from "@/components/ui/table"
+import { RenderCell } from "./RenderCell";
 
-export function PapaparseTablePrinter({headers, data, nElements} : {headers : any, data : any, nElements : number})
-    {
+export function PapaparseTablePrinter({headers, data, nElements} : {headers : any, data : any, nElements : number}) {
     
     return (
         <Table >
@@ -22,9 +21,7 @@ export function PapaparseTablePrinter({headers, data, nElements} : {headers : an
             <TableBody>
                 {data.slice(0, nElements).map((row: any, index : any) => (
                     <TableRow key={index}>
-                        {headers.map((header : any, col : any) => (
-                            <TableCell key={col}>{row[header]}</TableCell>
-                        ))}
+                        {headers.map((header : any, col : any) => <RenderCell keyId={col} value={row[header]} />)}
                     </TableRow>
                 ))}
             </TableBody>

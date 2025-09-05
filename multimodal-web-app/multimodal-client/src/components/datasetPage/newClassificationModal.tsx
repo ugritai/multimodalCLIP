@@ -1,5 +1,5 @@
 import { PredicionModel } from "@/types/PredictionModel";
-import { useEffect, useState } from "react";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import { UserModels } from "@/api/models.api";
 import { Skeleton } from "../ui/skeleton";
 import { GetDatasetHeaders, GetUniqueDescriptions } from "@/api/datasets.api";
@@ -8,6 +8,7 @@ import { Textarea } from "../ui/textarea";
 import { UploadClassification } from "@/api/classifications.api";
 import { ClassificationUploadRequest } from "@/types/ClassificationModel";
 import { ComboBox } from "../common/ComboBox";
+import { Input } from "../ui/input";
 
 type Props = {
         setShowModal : React.Dispatch<React.SetStateAction<boolean>>,
@@ -17,6 +18,8 @@ type Props = {
 type ClassificationOptions = {
     mode :string | undefined,
     predictor :string | undefined,
+    sample_size :number | undefined,
+    reference_sample_size :number | undefined,
     fusionMethod :string | undefined,
     model_name :string | undefined,
     classColumn :string | undefined,
@@ -104,6 +107,8 @@ export function NewClassificationModal(
     const [options, setOptions] = useState<ClassificationOptions>({
         mode :undefined,
         predictor :undefined,
+        sample_size :undefined,
+        reference_sample_size :undefined,
         fusionMethod :undefined,
         model_name : undefined,
         classColumn :undefined,
@@ -146,6 +151,8 @@ export function NewClassificationModal(
             dataset_id: dataset_id,
             mode: options.mode,
             predictor: options.predictor,
+            sample_size: options.sample_size,
+            reference_sample_size: options.reference_sample_size,
             fusion_method: options.fusionMethod,
             model_name: options.model_name,
             class_column: options.classColumn,
@@ -162,6 +169,14 @@ export function NewClassificationModal(
         return Object.entries(collection).find(([_, v]) => v === value)?.[0];
     }
 
+    const getNumberInput = (text :string, onChange : ChangeEventHandler<HTMLInputElement>) =>{
+        return (
+            <div className="flex items-center space-x-4 justify-between pb-1">
+                <p className="text-sm">{text}</p>
+                <Input className="w-[200px] justify-between" type='number' onChange={onChange}/>
+            </div>);
+    }
+
     const getComboBoxes = () => {
         if(isEmptyArray(predictionModels) || isEmptyArray(headers)){
             return <Skeleton className="w-full h-10 mb-1"/>
@@ -172,7 +187,9 @@ export function NewClassificationModal(
                 <ComboBox values={Object.values(modes)} defaultText="Modo de predicción" setField={(value) => {setOptions({...options,mode:searchValue(value, modes)})}}/>
                 {options.mode && <ComboBox values={Object.values(fusionMethods)} defaultText="Método de fusión" setField={(value) => {setOptions({...options,fusionMethod:searchValue(value, fusionMethods)})}}/>}
                 {options.fusionMethod && <ComboBox values={Object.values(predictors)} defaultText="Predictor" setField={(value) => {setOptions({...options,predictor:searchValue(value, predictors)})}}/>}
-                {options.predictor && <ComboBox values={predictionModels.map((v) => v.model_name)} defaultText="Modelo" setField={(value) => {setOptions({...options,model_name:value})}}/>}
+                {options.predictor && getNumberInput("Tamaño de clasificación", (e) => {setOptions({...options,sample_size:Number(e.target.value)})})}
+                {options.predictor && options.predictor === 'fewshot' && getNumberInput("Tamaño de referencia", (e) => {setOptions({...options,reference_sample_size:Number(e.target.value)})})}
+                {options.sample_size && (options.predictor !== 'fewshot' || options.reference_sample_size) && <ComboBox values={predictionModels.map((v) => v.model_name)} defaultText="Modelo" setField={(value) => {setOptions({...options,model_name:value})}}/>}
                 {options.model_name && <ComboBox values={headers} defaultText="Clases" setField={(value) => {setOptions({...options,classColumn:value}); loadUniqueClasses(value);}}/>}
                 {isValidString(options.classColumn) && 
                     getDescriptionTextBoxes()}

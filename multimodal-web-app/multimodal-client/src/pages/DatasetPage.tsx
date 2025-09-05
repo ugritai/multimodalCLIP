@@ -96,7 +96,7 @@ export function DatasetPage(){
             {newClassShowModal &&
                 <NewClassificationModal setShowModal={setNewClassShowModal} dataset_id={Number(dataset_id)}/>}
             {datasetInfo
-                ? <ClassificationsTable username={datasetInfo.user ?? ""}/>
+                ? <ClassificationsTable username={datasetInfo.user} dataset={datasetInfo.dataset_id ?? ""}/>
                 : <Skeleton className="w-full h-10 mb-1"/>}
     </div>
     )

@@ -72,6 +72,8 @@ export function ClassificationPage() {
             <div className="grid grid-cols-1 md:grid-cols-2">
                 <p><strong>Modo:</strong> {params.mode}</p>
                 <p><strong>Predictor:</strong> {params.predictor}</p>
+                <p><strong>Datos utilizados:</strong> {params.sample_size}</p>
+                {params.reference_sample_size && <p><strong>Datos de referencia:</strong> {params.reference_sample_size}</p>}
                 {params.fusion_method && <p><strong>Método de fusión:</strong> {params.fusion_method}</p>}
                 <p><strong>Columna de clase:</strong> {params.class_column}</p>
                 {params.text_column && <p><strong>Columna de texto:</strong> {params.text_column}</p>}

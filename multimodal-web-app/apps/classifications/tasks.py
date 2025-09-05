@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from celery import shared_task
 from apps.classifications.models import ClassificationProcess
 from apps.classifications.predictors import FewShotPredictor, ZeroShotPredictor
@@ -28,6 +29,7 @@ class ClassificationLog:
 
     def save(self):
         path = f'data/{self.user}/{self.dataset}/classification_{self.classification_id}.json'
+        os.makedirs(os.path.dirname(path), exist_ok=True)
         with open(path, 'w') as file:
             file.write(json.dumps(self.to_dict()))
 

@@ -30,19 +30,24 @@ def classify_dataset(request):
     
     dataset = Dataset.objects.get(dataset_id = serializer.validated_data['dataset_id'])
 
+    classification_parameters = {
+        'mode': serializer.validated_data['mode'],
+        'predictor': serializer.validated_data['predictor'],
+        'fusion_method': serializer.validated_data['fusion_method'],
+        'class_column': serializer.validated_data['class_column'],
+        'descriptions': serializer.validated_data['descriptions'],
+        'text_column': serializer.validated_data['text_column'],
+        'image_column': serializer.validated_data['image_column'],
+        'sample_size': serializer.validated_data['sample_size'],
+    }
+    if 'reference_sample_size' in serializer.validated_data:
+        classification_parameters['reference_sample_size'] = serializer.validated_data['reference_sample_size']
+
     classification_process = ClassificationProcess(
         dataset = dataset, 
         model_name = serializer.validated_data['model_name'], 
         user=request.user,
-        parameters = {
-            'mode': serializer.validated_data['mode'],
-            'predictor': serializer.validated_data['predictor'],
-            'fusion_method': serializer.validated_data['fusion_method'],
-            'class_column': serializer.validated_data['class_column'],
-            'descriptions': serializer.validated_data['descriptions'],
-            'text_column': serializer.validated_data['text_column'],
-            'image_column': serializer.validated_data['image_column']
-        })
+        parameters = classification_parameters)
     classification_process.save()
 
     # predict_dataset(classification_id=classification_process.id)
